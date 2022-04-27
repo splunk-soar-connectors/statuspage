@@ -1,0 +1,1819 @@
+{
+    "appid": "c0f424fd-2bfb-4b74-a2f8-2c27dfe80abd",
+    "name": "Statuspage",
+    "description": "This app is an Atlassian product that is used to help monitor and communicate status issues for various products",
+    "type": "ticketing",
+    "main_module": "statuspage_connector.py",
+    "app_version": "1.0.0",
+    "utctime_updated": "2022-04-21T07:54:56.000000Z",
+    "package_name": "phantom_statuspage",
+    "product_vendor": "Atlassian",
+    "product_name": "Statuspage",
+    "product_version_regex": ".*",
+    "min_phantom_version": "5.2.0",
+    "python_version": "3",
+    "fips_compliant": true,
+    "latest_tested_versions": [],
+    "publisher": "Splunk",
+    "logo": "logo_statuspage.svg",
+    "logo_dark": "logo_statuspage_dark.svg",
+    "app_wizard_version": "1.0.0",
+    "license": "Copyright (c) 2022 Splunk Inc.",
+    "configuration": {
+        "base_url": {
+            "data_type": "string",
+            "description": "Base URL to Statuspage service",
+            "required": true,
+            "order": 0
+        },
+        "api_key": {
+            "data_type": "password",
+            "description": "API Key",
+            "order": 1,
+            "required": true
+        },
+        "page_id": {
+            "data_type": "string",
+            "description": "Page Identifier",
+            "order": 2,
+            "required": true
+        },
+        "timeout": {
+            "data_type": "numeric",
+            "description": "Timeout (seconds)",
+            "required": true,
+            "order": 3,
+            "default": 600
+        }
+    },
+    "actions": [
+        {
+            "action": "test connectivity",
+            "description": "Validate the asset configuration for connectivity using the supplied credentials",
+            "type": "test",
+            "identifier": "test_connectivity",
+            "read_only": true,
+            "parameters": {},
+            "output": [],
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "list incidents",
+            "description": "Get a list of incidents",
+            "type": "investigate",
+            "identifier": "list_incidents",
+            "read_only": true,
+            "parameters": {
+                "query": {
+                    "description": "Provide text to search in the incident name, status, postmortem body and incident_updates fields",
+                    "data_type": "string",
+                    "order": 0
+                },
+                "limit": {
+                    "description": "The maximum number of rows to return per page (default and max: 100)",
+                    "data_type": "numeric",
+                    "order": 1
+                },
+                "page_offset": {
+                    "description": "Page offset to fetch",
+                    "data_type": "numeric",
+                    "order": 2
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.limit",
+                    "data_type": "numeric",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.parameter.page_offset",
+                    "data_type": "numeric",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.parameter.query",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.components.*.created_at",
+                    "data_type": "string",
+                    "example_value": "2022-04-08T06:27:16.221Z"
+                },
+                {
+                    "data_path": "action_result.data.*.components.*.description",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.components.*.group_id",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.components.*.id",
+                    "data_type": "string",
+                    "example_value": "nmxlwqgr3vbx"
+                },
+                {
+                    "data_path": "action_result.data.*.components.*.name",
+                    "data_type": "string",
+                    "example_value": "API (example)"
+                },
+                {
+                    "data_path": "action_result.data.*.components.*.page_id",
+                    "data_type": "string",
+                    "example_value": "zvymjwsxldwr"
+                },
+                {
+                    "data_path": "action_result.data.*.components.*.position",
+                    "data_type": "numeric",
+                    "example_value": 1
+                },
+                {
+                    "data_path": "action_result.data.*.components.*.showcase",
+                    "data_type": "boolean",
+                    "example_value": true
+                },
+                {
+                    "data_path": "action_result.data.*.components.*.start_date",
+                    "data_type": "string",
+                    "example_value": "2022-04-08T00:00:00.000Z"
+                },
+                {
+                    "data_path": "action_result.data.*.components.*.status",
+                    "data_type": "string",
+                    "example_value": "operational"
+                },
+                {
+                    "data_path": "action_result.data.*.components.*.updated_at",
+                    "data_type": "string",
+                    "example_value": "2022-04-08T06:27:16.221Z"
+                },
+                {
+                    "data_path": "action_result.data.*.created_at",
+                    "data_type": "string",
+                    "example_value": "2022-04-25T12:39:28.604Z"
+                },
+                {
+                    "data_path": "action_result.data.*.id",
+                    "data_type": "string",
+                    "example_value": "fwf7446qh4rb",
+                    "contains": [
+                        "incident id"
+                    ],
+                    "column_order": 0,
+                    "column_name": "Incident ID"
+                },
+                {
+                    "data_path": "action_result.data.*.impact",
+                    "data_type": "string",
+                    "example_value": "none",
+                    "contains": [
+                        "incident impact"
+                    ],
+                    "column_order": 3,
+                    "column_name": "Incident Impact"
+                },
+                {
+                    "data_path": "action_result.data.*.impact_override",
+                    "data_type": "string",
+                    "example_value": "none"
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.affected_components",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.affected_components.*.code",
+                    "data_type": "string",
+                    "example_value": "nmxlwqgr3vbx"
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.affected_components.*.name",
+                    "data_type": "string",
+                    "example_value": "API (example)"
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.affected_components.*.new_status",
+                    "data_type": "string",
+                    "example_value": "operational"
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.affected_components.*.old_status",
+                    "data_type": "string",
+                    "example_value": "operational"
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.body",
+                    "data_type": "string",
+                    "example_value": "new incident identified"
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.created_at",
+                    "data_type": "string",
+                    "example_value": "2022-04-25T12:39:28.635Z"
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.custom_tweet",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.deliver_notifications",
+                    "data_type": "boolean",
+                    "example_value": true
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.display_at",
+                    "data_type": "string",
+                    "example_value": "2022-04-25T12:39:28.635Z"
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.id",
+                    "data_type": "string",
+                    "example_value": "4smmk9r2fvm6"
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.incident_id",
+                    "data_type": "string",
+                    "example_value": "fwf7446qh4rb"
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.status",
+                    "data_type": "string",
+                    "example_value": "identified"
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.tweet_id",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.twitter_updated_at",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.updated_at",
+                    "data_type": "string",
+                    "example_value": "2022-04-25T12:39:28.635Z"
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.wants_twitter_update",
+                    "data_type": "boolean",
+                    "example_value": false
+                },
+                {
+                    "data_path": "action_result.data.*.monitoring_at",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.name",
+                    "data_type": "string",
+                    "example_value": "phan test incident",
+                    "contains": [
+                        "incident name"
+                    ],
+                    "column_order": 1,
+                    "column_name": "Incident Name"
+                },
+                {
+                    "data_path": "action_result.data.*.page_id",
+                    "data_type": "string",
+                    "example_value": "zvymjwsxldwr"
+                },
+                {
+                    "data_path": "action_result.data.*.postmortem_body",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.postmortem_body_last_updated_at",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.postmortem_ignored",
+                    "data_type": "boolean",
+                    "example_value": false
+                },
+                {
+                    "data_path": "action_result.data.*.postmortem_notified_subscribers",
+                    "data_type": "boolean",
+                    "example_value": false
+                },
+                {
+                    "data_path": "action_result.data.*.postmortem_notified_twitter",
+                    "data_type": "boolean",
+                    "example_value": false
+                },
+                {
+                    "data_path": "action_result.data.*.postmortem_published_at",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.resolved_at",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.scheduled_auto_completed",
+                    "data_type": "boolean",
+                    "example_value": false
+                },
+                {
+                    "data_path": "action_result.data.*.scheduled_auto_in_progress",
+                    "data_type": "boolean",
+                    "example_value": false
+                },
+                {
+                    "data_path": "action_result.data.*.scheduled_for",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.scheduled_remind_prior",
+                    "data_type": "boolean",
+                    "example_value": false
+                },
+                {
+                    "data_path": "action_result.data.*.scheduled_reminded_at",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.scheduled_until",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.shortlink",
+                    "data_type": "string",
+                    "example_value": "https://stspg.io/gl86rvc5tjzn"
+                },
+                {
+                    "data_path": "action_result.data.*.started_at",
+                    "data_type": "string",
+                    "example_value": "2022-04-25T12:39:28.598Z"
+                },
+                {
+                    "data_path": "action_result.data.*.status",
+                    "data_type": "string",
+                    "example_value": "identified",
+                    "contains": [
+                        "incident status"
+                    ],
+                    "column_order": 2,
+                    "column_name": "Incident Status"
+                },
+                {
+                    "data_path": "action_result.data.*.updated_at",
+                    "data_type": "string",
+                    "example_value": "2022-04-25T12:39:28.638Z"
+                },
+                {
+                    "data_path": "action_result.summary.num_incident",
+                    "data_type": "numeric",
+                    "example_value": 5
+                },
+                {
+                    "data_path": "action_result.summary.num_incidents",
+                    "data_type": "numeric",
+                    "example_value": 0
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                }
+            ],
+            "render": {
+                "type": "table",
+                "width": 12,
+                "height": 5,
+                "title": "list incidents"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "get incident",
+            "description": "Get an incident",
+            "type": "investigate",
+            "identifier": "get_incident",
+            "read_only": true,
+            "parameters": {
+                "incident_id": {
+                    "description": "Incident Identifier",
+                    "data_type": "string",
+                    "order": 0,
+                    "contains": [
+                        "incident id"
+                    ],
+                    "required": true,
+                    "primary": true
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.incident_id",
+                    "data_type": "string",
+                    "example_value": "",
+                    "contains": [
+                        "incident id"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.components.*.automation_email",
+                    "data_type": "string",
+                    "example_value": "component+01a42729-82fc-46e6-bf20-7c8bebe01c0b@notifications.statuspage.io"
+                },
+                {
+                    "data_path": "action_result.data.*.components.*.created_at",
+                    "data_type": "string",
+                    "example_value": "2022-04-08T06:27:16Z"
+                },
+                {
+                    "data_path": "action_result.data.*.components.*.description",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.components.*.group",
+                    "data_type": "boolean",
+                    "example_value": false
+                },
+                {
+                    "data_path": "action_result.data.*.components.*.group_id",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.components.*.id",
+                    "data_type": "string",
+                    "example_value": "nmxlwqgr3vbx"
+                },
+                {
+                    "data_path": "action_result.data.*.components.*.name",
+                    "data_type": "string",
+                    "example_value": "API (example)"
+                },
+                {
+                    "data_path": "action_result.data.*.components.*.only_show_if_degraded",
+                    "data_type": "boolean",
+                    "example_value": false
+                },
+                {
+                    "data_path": "action_result.data.*.components.*.page_id",
+                    "data_type": "string",
+                    "example_value": "zvymjwsxldwr"
+                },
+                {
+                    "data_path": "action_result.data.*.components.*.position",
+                    "data_type": "numeric",
+                    "example_value": 1
+                },
+                {
+                    "data_path": "action_result.data.*.components.*.showcase",
+                    "data_type": "boolean",
+                    "example_value": true
+                },
+                {
+                    "data_path": "action_result.data.*.components.*.start_date",
+                    "data_type": "string",
+                    "example_value": "2022-04-08"
+                },
+                {
+                    "data_path": "action_result.data.*.components.*.status",
+                    "data_type": "string",
+                    "example_value": "operational"
+                },
+                {
+                    "data_path": "action_result.data.*.components.*.updated_at",
+                    "data_type": "string",
+                    "example_value": "2022-04-08T06:27:16Z"
+                },
+                {
+                    "data_path": "action_result.data.*.created_at",
+                    "data_type": "string",
+                    "example_value": "2022-04-11T13:08:38Z"
+                },
+                {
+                    "data_path": "action_result.data.*.id",
+                    "data_type": "string",
+                    "example_value": "6m9989pk8g7k",
+                    "contains": [
+                        "incident id"
+                    ],
+                    "column_order": 0,
+                    "column_name": "Incident Id"
+                },
+                {
+                    "data_path": "action_result.data.*.impact",
+                    "data_type": "string",
+                    "example_value": "none",
+                    "contains": [
+                        "incident impact"
+                    ],
+                    "column_order": 3,
+                    "column_name": "Incident Impact"
+                },
+                {
+                    "data_path": "action_result.data.*.impact_override",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.affected_components.*.code",
+                    "data_type": "string",
+                    "example_value": "nmxlwqgr3vbx"
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.affected_components.*.name",
+                    "data_type": "string",
+                    "example_value": "API (example)"
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.affected_components.*.new_status",
+                    "data_type": "string",
+                    "example_value": "operational"
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.affected_components.*.old_status",
+                    "data_type": "string",
+                    "example_value": "operational"
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.body",
+                    "data_type": "string",
+                    "example_value": "the test issue is resolved"
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.created_at",
+                    "data_type": "string",
+                    "example_value": "2022-04-21T06:15:48.611Z"
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.custom_tweet",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.deliver_notifications",
+                    "data_type": "boolean",
+                    "example_value": true
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.display_at",
+                    "data_type": "string",
+                    "example_value": "2022-04-21T06:15:48.611Z"
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.id",
+                    "data_type": "string",
+                    "example_value": "rpv1c7rz7tkn"
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.incident_id",
+                    "data_type": "string",
+                    "example_value": "6m9989pk8g7k"
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.status",
+                    "data_type": "string",
+                    "example_value": "resolved"
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.tweet_id",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.twitter_updated_at",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.updated_at",
+                    "data_type": "string",
+                    "example_value": "2022-04-21T06:15:48.611Z"
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.wants_twitter_update",
+                    "data_type": "boolean",
+                    "example_value": false
+                },
+                {
+                    "data_path": "action_result.data.*.monitoring_at",
+                    "data_type": "string",
+                    "example_value": "2022-04-21T06:15:03Z"
+                },
+                {
+                    "data_path": "action_result.data.*.name",
+                    "data_type": "string",
+                    "example_value": "string",
+                    "contains": [
+                        "incident name"
+                    ],
+                    "column_order": 1,
+                    "column_name": "Incident Name"
+                },
+                {
+                    "data_path": "action_result.data.*.page_id",
+                    "data_type": "string",
+                    "example_value": "zvymjwsxldwr"
+                },
+                {
+                    "data_path": "action_result.data.*.postmortem_body",
+                    "data_type": "string",
+                    "example_value": "It was a testing incident"
+                },
+                {
+                    "data_path": "action_result.data.*.postmortem_body_last_updated_at",
+                    "data_type": "string",
+                    "example_value": "2022-04-21T06:16:36Z"
+                },
+                {
+                    "data_path": "action_result.data.*.postmortem_ignored",
+                    "data_type": "boolean",
+                    "example_value": false
+                },
+                {
+                    "data_path": "action_result.data.*.postmortem_notified_subscribers",
+                    "data_type": "boolean",
+                    "example_value": false
+                },
+                {
+                    "data_path": "action_result.data.*.postmortem_notified_twitter",
+                    "data_type": "boolean",
+                    "example_value": false
+                },
+                {
+                    "data_path": "action_result.data.*.postmortem_published_at",
+                    "data_type": "string",
+                    "example_value": "2022-04-21T06:16:36.385Z"
+                },
+                {
+                    "data_path": "action_result.data.*.resolved_at",
+                    "data_type": "string",
+                    "example_value": "2022-04-21T06:15:48Z"
+                },
+                {
+                    "data_path": "action_result.data.*.scheduled_auto_completed",
+                    "data_type": "boolean",
+                    "example_value": false
+                },
+                {
+                    "data_path": "action_result.data.*.scheduled_auto_in_progress",
+                    "data_type": "boolean",
+                    "example_value": false
+                },
+                {
+                    "data_path": "action_result.data.*.scheduled_for",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.scheduled_remind_prior",
+                    "data_type": "boolean",
+                    "example_value": false
+                },
+                {
+                    "data_path": "action_result.data.*.scheduled_reminded_at",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.scheduled_until",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.shortlink",
+                    "data_type": "string",
+                    "example_value": "https://stspg.io/knjhkxkcfgxk"
+                },
+                {
+                    "data_path": "action_result.data.*.status",
+                    "data_type": "string",
+                    "example_value": "resolved",
+                    "contains": [
+                        "incident status"
+                    ],
+                    "column_order": 2,
+                    "column_name": "Incident Status"
+                },
+                {
+                    "data_path": "action_result.data.*.updated_at",
+                    "data_type": "string",
+                    "example_value": "2022-04-21T06:16:36Z"
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                }
+            ],
+            "render": {
+                "type": "table",
+                "width": 12,
+                "height": 5,
+                "title": "get incident"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "create incident subscriber",
+            "description": "Create an incident subscriber",
+            "type": "generic",
+            "identifier": "create_incident_subscriber",
+            "read_only": false,
+            "parameters": {
+                "incident_id": {
+                    "description": "Incident Identifier",
+                    "data_type": "string",
+                    "order": 0,
+                    "contains": [
+                        "incident id"
+                    ],
+                    "required": true,
+                    "primary": true
+                },
+                "email": {
+                    "description": " Email address for creating email subscriber",
+                    "data_type": "string",
+                    "order": 1,
+                    "contains": [
+                        "email id"
+                    ],
+                    "primary": true
+                },
+                "phone_country": {
+                    "description": "Two-character country code",
+                    "data_type": "string",
+                    "order": 2,
+                    "contains": [
+                        "country code"
+                    ],
+                    "primary": true
+                },
+                "phone_number": {
+                    "description": "Phone number for creating SMS subscriber",
+                    "data_type": "string",
+                    "order": 3,
+                    "contains": [
+                        "phone number"
+                    ],
+                    "primary": true
+                },
+                "skip_confirmation_notification": {
+                    "description": "If true, the subscriber does not receive any notifications when their subscription changes",
+                    "data_type": "boolean",
+                    "order": 4
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ],
+                    "contains": [
+                        "status"
+                    ],
+                    "column_order": 2,
+                    "column_name": "Status"
+                },
+                {
+                    "data_path": "action_result.parameter.email",
+                    "data_type": "string",
+                    "example_value": "",
+                    "contains": [
+                        "email id"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.incident_id",
+                    "data_type": "string",
+                    "example_value": "",
+                    "contains": [
+                        "incident id"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.phone_country",
+                    "data_type": "string",
+                    "example_value": "",
+                    "contains": [
+                        "country code"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.phone_number",
+                    "data_type": "string",
+                    "example_value": "",
+                    "contains": [
+                        "phone number"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.skip_confirmation_notification",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.created_at",
+                    "data_type": "string",
+                    "example_value": "2022-04-26T05:32:08Z"
+                },
+                {
+                    "data_path": "action_result.data.*.email",
+                    "data_type": "string",
+                    "example_value": "test@gmail.com",
+                    "contains": [
+                        "email id"
+                    ],
+                    "column_order": 1,
+                    "column_name": "Subscriber Email Id"
+                },
+                {
+                    "data_path": "action_result.data.*.id",
+                    "data_type": "string",
+                    "example_value": "86qs8rfn5pnd",
+                    "contains": [
+                        "incident id"
+                    ],
+                    "column_order": 0,
+                    "column_name": "Incident Id"
+                },
+                {
+                    "data_path": "action_result.data.*.mode",
+                    "data_type": "string",
+                    "example_value": "email"
+                },
+                {
+                    "data_path": "action_result.data.*.purge_at",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.quarantined_at",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.skip_confirmation_notification",
+                    "data_type": "boolean",
+                    "example_value": false
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                }
+            ],
+            "render": {
+                "type": "table",
+                "width": 12,
+                "height": 5,
+                "title": "create incident subscriber"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "create incident",
+            "description": "Create an incident",
+            "type": "generic",
+            "identifier": "create_incident",
+            "read_only": false,
+            "parameters": {
+                "name": {
+                    "description": "Incident Name",
+                    "data_type": "string",
+                    "required": true,
+                    "order": 0,
+                    "contains": [
+                        "incident name"
+                    ],
+                    "primary": true
+                },
+                "status": {
+                    "description": "Incident status (investigating, identified, monitoring, resolved). Default is investigating",
+                    "data_type": "string",
+                    "order": 1,
+                    "contains": [
+                        "incident status"
+                    ],
+                    "value_list": [
+                        "investigating",
+                        "identified",
+                        "monitoring",
+                        "resolved"
+                    ],
+                    "primary": true
+                },
+                "impact_override": {
+                    "description": "Select value to override calculated impact value (none, maintenance, minor, major, critical). Default is none",
+                    "data_type": "string",
+                    "order": 2,
+                    "contains": [
+                        "incident impact value"
+                    ],
+                    "value_list": [
+                        "none",
+                        "maintenance",
+                        "minor",
+                        "major",
+                        "critical"
+                    ],
+                    "primary": true
+                },
+                "body": {
+                    "description": "The initial message, created as the first incident update",
+                    "data_type": "string",
+                    "order": 3,
+                    "contains": [
+                        "incident body"
+                    ],
+                    "primary": true
+                },
+                "component_ids": {
+                    "description": "List of component ids affected by this incident",
+                    "data_type": "string",
+                    "order": 4
+                },
+                "components": {
+                    "description": "A JSON object of component affected and status",
+                    "verbose": "Map of status changes to apply to affected components",
+                    "data_type": "string",
+                    "order": 5
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ],
+                    "contains": [
+                        "status"
+                    ],
+                    "column_order": 2,
+                    "column_name": "Status"
+                },
+                {
+                    "data_path": "action_result.parameter.body",
+                    "data_type": "string",
+                    "example_value": "",
+                    "contains": [
+                        "incident body"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.components",
+                    "data_type": "string",
+                    "example_values": [
+                        "{\"fz7cfjdzg9hs\": \"operational\", \"nmxlwqgr3vbx\": \"partial_outage\"}"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.component_ids",
+                    "data_type": "string",
+                    "example_value": [
+                        "fz7cfjdzg9hs",
+                        "nmxlwqgr3vbx"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.impact_override",
+                    "data_type": "string",
+                    "example_value": "",
+                    "contains": [
+                        "incident impact value"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.name",
+                    "data_type": "string",
+                    "example_value": "",
+                    "contains": [
+                        "incident name"
+                    ],
+                    "column_order": 1,
+                    "column_name": "Incident Name"
+                },
+                {
+                    "data_path": "action_result.parameter.status",
+                    "data_type": "string",
+                    "example_value": "",
+                    "contains": [
+                        "incident status"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.created_at",
+                    "data_type": "string",
+                    "example_value": "2022-04-25T18:57:25Z"
+                },
+                {
+                    "data_path": "action_result.data.*.id",
+                    "data_type": "string",
+                    "example_value": "chxvv9qr6d9p",
+                    "contains": [
+                        "incident id"
+                    ],
+                    "column_order": 0,
+                    "column_name": "Incident Id"
+                },
+                {
+                    "data_path": "action_result.data.*.impact",
+                    "data_type": "string",
+                    "example_value": "none"
+                },
+                {
+                    "data_path": "action_result.data.*.impact_override",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.affected_components",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.body",
+                    "data_type": "string",
+                    "example_value": "We are currently investigating this issue."
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.created_at",
+                    "data_type": "string",
+                    "example_value": "2022-04-25T18:57:25.382Z"
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.custom_tweet",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.deliver_notifications",
+                    "data_type": "boolean",
+                    "example_value": true
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.display_at",
+                    "data_type": "string",
+                    "example_value": "2022-04-25T18:57:25.382Z"
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.id",
+                    "data_type": "string",
+                    "example_value": "wht0qsdbgmlz"
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.incident_id",
+                    "data_type": "string",
+                    "example_value": "chxvv9qr6d9p"
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.status",
+                    "data_type": "string",
+                    "example_value": "investigating"
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.tweet_id",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.twitter_updated_at",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.updated_at",
+                    "data_type": "string",
+                    "example_value": "2022-04-25T18:57:25.382Z"
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.wants_twitter_update",
+                    "data_type": "boolean",
+                    "example_value": false
+                },
+                {
+                    "data_path": "action_result.data.*.monitoring_at",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.name",
+                    "data_type": "string",
+                    "example_value": "Test Incident 3"
+                },
+                {
+                    "data_path": "action_result.data.*.page_id",
+                    "data_type": "string",
+                    "example_value": "zvymjwsxldwr"
+                },
+                {
+                    "data_path": "action_result.data.*.postmortem_body",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.postmortem_body_last_updated_at",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.postmortem_ignored",
+                    "data_type": "boolean",
+                    "example_value": false
+                },
+                {
+                    "data_path": "action_result.data.*.postmortem_notified_subscribers",
+                    "data_type": "boolean",
+                    "example_value": false
+                },
+                {
+                    "data_path": "action_result.data.*.postmortem_notified_twitter",
+                    "data_type": "boolean",
+                    "example_value": false
+                },
+                {
+                    "data_path": "action_result.data.*.postmortem_published_at",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.resolved_at",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.scheduled_auto_completed",
+                    "data_type": "boolean",
+                    "example_value": false
+                },
+                {
+                    "data_path": "action_result.data.*.scheduled_auto_in_progress",
+                    "data_type": "boolean",
+                    "example_value": false
+                },
+                {
+                    "data_path": "action_result.data.*.scheduled_for",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.scheduled_remind_prior",
+                    "data_type": "boolean",
+                    "example_value": false
+                },
+                {
+                    "data_path": "action_result.data.*.scheduled_reminded_at",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.scheduled_until",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.shortlink",
+                    "data_type": "string",
+                    "example_value": "https://stspg.io/rbbvwvdqdmtx"
+                },
+                {
+                    "data_path": "action_result.data.*.status",
+                    "data_type": "string",
+                    "example_value": "investigating"
+                },
+                {
+                    "data_path": "action_result.data.*.updated_at",
+                    "data_type": "string",
+                    "example_value": "2022-04-25T18:57:25Z"
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                }
+            ],
+            "render": {
+                "type": "table",
+                "width": 12,
+                "height": 5,
+                "title": "create incident"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "update incident",
+            "description": "Update an incident",
+            "type": "generic",
+            "identifier": "update_incident",
+            "read_only": false,
+            "parameters": {
+                "incident_id": {
+                    "description": "Incident Identifier",
+                    "data_type": "string",
+                    "order": 0,
+                    "contains": [
+                        "incident id"
+                    ],
+                    "required": true,
+                    "primary": true
+                },
+                "name": {
+                    "description": "Update Incident Name",
+                    "data_type": "string",
+                    "order": 1,
+                    "contains": [
+                        "incident name"
+                    ],
+                    "primary": true
+                },
+                "status": {
+                    "description": "Update Incident status (investigating, identified, monitoring, resolved)",
+                    "data_type": "string",
+                    "order": 2,
+                    "contains": [
+                        "incident status"
+                    ],
+                    "value_list": [
+                        "investigating",
+                        "identified",
+                        "monitoring",
+                        "resolved"
+                    ],
+                    "primary": true
+                },
+                "impact_override": {
+                    "description": "Select value to override calculated impact value (none, maintenance, minor, major, critical)",
+                    "data_type": "string",
+                    "order": 3,
+                    "contains": [
+                        "incident impact value"
+                    ],
+                    "value_list": [
+                        "none",
+                        "maintenance",
+                        "minor",
+                        "major",
+                        "critical"
+                    ],
+                    "primary": true
+                },
+                "body": {
+                    "description": "Update initial message, created as the first incident update",
+                    "data_type": "string",
+                    "order": 4,
+                    "contains": [
+                        "incident body"
+                    ],
+                    "primary": true
+                },
+                "component_ids": {
+                    "description": "List of component ids affected by this incident",
+                    "data_type": "string",
+                    "order": 5,
+                    "example": [
+                        "fz7cfjdzg9hs",
+                        "nmxlwqgr3vbx"
+                    ]
+                },
+                "components": {
+                    "description": "Map of status changes to apply to affected components",
+                    "data_type": "string",
+                    "order": 6,
+                    "example": {
+                        "fz7cfjdzg9hs": "operational",
+                        "nmxlwqgr3vbx": "degraded_performance"
+                    }
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ],
+                    "contains": [
+                        "status"
+                    ],
+                    "column_order": 2,
+                    "column_name": "Status"
+                },
+                {
+                    "data_path": "action_result.parameter.body",
+                    "data_type": "string",
+                    "example_value": "",
+                    "contains": [
+                        "incident body"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.components",
+                    "data_type": "string",
+                    "example_values": [
+                        "{\"fz7cfjdzg9hs\": \"operational\", \"nmxlwqgr3vbx\": \"partial_outage\"}"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.component_ids",
+                    "data_type": "string",
+                    "example_value": [
+                        "fz7cfjdzg9hs",
+                        "nmxlwqgr3vbx"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.impact_override",
+                    "data_type": "string",
+                    "example_value": "",
+                    "contains": [
+                        "incident impact value"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.incident_id",
+                    "data_type": "string",
+                    "example_value": "",
+                    "contains": [
+                        "incident id"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.name",
+                    "data_type": "string",
+                    "example_value": "",
+                    "contains": [
+                        "incident name"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.status",
+                    "data_type": "string",
+                    "example_value": "",
+                    "contains": [
+                        "incident status"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.created_at",
+                    "data_type": "string",
+                    "example_value": "2022-04-25T18:57:25Z"
+                },
+                {
+                    "data_path": "action_result.data.*.id",
+                    "data_type": "string",
+                    "example_value": "chxvv9qr6d9p",
+                    "contains": [
+                        "incident id"
+                    ],
+                    "column_order": 0,
+                    "column_name": "Incident Id"
+                },
+                {
+                    "data_path": "action_result.data.*.impact",
+                    "data_type": "string",
+                    "example_value": "minor"
+                },
+                {
+                    "data_path": "action_result.data.*.impact_override",
+                    "data_type": "string",
+                    "example_value": "minor"
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.affected_components",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.body",
+                    "data_type": "string",
+                    "example_value": "We are currently investigating this issue."
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.created_at",
+                    "data_type": "string",
+                    "example_value": "2022-04-25T18:57:25.382Z"
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.custom_tweet",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.deliver_notifications",
+                    "data_type": "boolean",
+                    "example_value": true
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.display_at",
+                    "data_type": "string",
+                    "example_value": "2022-04-25T18:57:25.382Z"
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.id",
+                    "data_type": "string",
+                    "example_value": "wht0qsdbgmlz"
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.incident_id",
+                    "data_type": "string",
+                    "example_value": "chxvv9qr6d9p"
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.status",
+                    "data_type": "string",
+                    "example_value": "investigating"
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.tweet_id",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.twitter_updated_at",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.updated_at",
+                    "data_type": "string",
+                    "example_value": "2022-04-25T18:57:25.382Z"
+                },
+                {
+                    "data_path": "action_result.data.*.incident_updates.*.wants_twitter_update",
+                    "data_type": "boolean",
+                    "example_value": false
+                },
+                {
+                    "data_path": "action_result.data.*.monitoring_at",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.name",
+                    "data_type": "string",
+                    "example_value": "Test Incident 3",
+                    "contains": [
+                        "incident name"
+                    ],
+                    "column_order": 1,
+                    "column_name": "Incident Name"
+                },
+                {
+                    "data_path": "action_result.data.*.page_id",
+                    "data_type": "string",
+                    "example_value": "zvymjwsxldwr"
+                },
+                {
+                    "data_path": "action_result.data.*.postmortem_body",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.postmortem_body_last_updated_at",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.postmortem_ignored",
+                    "data_type": "boolean",
+                    "example_value": false
+                },
+                {
+                    "data_path": "action_result.data.*.postmortem_notified_subscribers",
+                    "data_type": "boolean",
+                    "example_value": false
+                },
+                {
+                    "data_path": "action_result.data.*.postmortem_notified_twitter",
+                    "data_type": "boolean",
+                    "example_value": false
+                },
+                {
+                    "data_path": "action_result.data.*.postmortem_published_at",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.resolved_at",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.scheduled_auto_completed",
+                    "data_type": "boolean",
+                    "example_value": false
+                },
+                {
+                    "data_path": "action_result.data.*.scheduled_auto_in_progress",
+                    "data_type": "boolean",
+                    "example_value": false
+                },
+                {
+                    "data_path": "action_result.data.*.scheduled_for",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.scheduled_remind_prior",
+                    "data_type": "boolean",
+                    "example_value": false
+                },
+                {
+                    "data_path": "action_result.data.*.scheduled_reminded_at",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.scheduled_until",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.shortlink",
+                    "data_type": "string",
+                    "example_value": "https://stspg.io/rbbvwvdqdmtx"
+                },
+                {
+                    "data_path": "action_result.data.*.status",
+                    "data_type": "string",
+                    "example_value": "investigating"
+                },
+                {
+                    "data_path": "action_result.data.*.updated_at",
+                    "data_type": "string",
+                    "example_value": "2022-04-25T19:12:11Z"
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                }
+            ],
+            "render": {
+                "type": "table",
+                "width": 12,
+                "height": 5,
+                "title": "update incident"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "list incident subscribers",
+            "description": "Get a list of incident subscribers",
+            "type": "investigate",
+            "identifier": "list_incident_subscribers",
+            "read_only": true,
+            "parameters": {
+                "incident_id": {
+                    "description": "Incident Identifier",
+                    "data_type": "string",
+                    "required": true,
+                    "contains": [
+                        "incident id"
+                    ],
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.incident_id",
+                    "data_type": "string",
+                    "example_value": "",
+                    "contains": [
+                        "incident id"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.created_at",
+                    "data_type": "string",
+                    "example_value": "2022-04-26T05:32:08Z"
+                },
+                {
+                    "data_path": "action_result.data.*.email",
+                    "data_type": "string",
+                    "example_value": "test@gmail.com",
+                    "contains": [
+                        "email id"
+                    ],
+                    "column_order": 1,
+                    "column_name": "Subscriber Email Id"
+                },
+                {
+                    "data_path": "action_result.data.*.id",
+                    "data_type": "string",
+                    "example_value": "86qs8rfn5pnd",
+                    "contains": [
+                        "subscriber id"
+                    ],
+                    "column_order": 0,
+                    "column_name": "Subscriber Id"
+                },
+                {
+                    "data_path": "action_result.data.*.mode",
+                    "data_type": "string",
+                    "example_value": "email"
+                },
+                {
+                    "data_path": "action_result.data.*.purge_at",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.quarantined_at",
+                    "data_type": "string",
+                    "example_value": ""
+                },
+                {
+                    "data_path": "action_result.data.*.skip_confirmation_notification",
+                    "data_type": "boolean",
+                    "example_value": false
+                },
+                {
+                    "data_path": "action_result.summary.num of subscribers",
+                    "data_type": "numeric",
+                    "example_value": 2
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                }
+            ],
+            "render": {
+                "type": "table",
+                "width": 12,
+                "height": 5,
+                "title": "list incident subscribers"
+            },
+            "versions": "EQ(*)"
+        }
+    ],
+    "pip_dependencies": {
+        "wheel": [
+            {
+                "module": "beautifulsoup4",
+                "input_file": "wheels/py3/beautifulsoup4-4.9.1-py3-none-any.whl"
+            },
+            {
+                "module": "certifi",
+                "input_file": "wheels/shared/certifi-2021.10.8-py2.py3-none-any.whl"
+            },
+            {
+                "module": "chardet",
+                "input_file": "wheels/shared/chardet-3.0.4-py2.py3-none-any.whl"
+            },
+            {
+                "module": "idna",
+                "input_file": "wheels/shared/idna-2.10-py2.py3-none-any.whl"
+            },
+            {
+                "module": "requests",
+                "input_file": "wheels/shared/requests-2.25.0-py2.py3-none-any.whl"
+            },
+            {
+                "module": "soupsieve",
+                "input_file": "wheels/py3/soupsieve-2.3.2.post1-py3-none-any.whl"
+            },
+            {
+                "module": "urllib3",
+                "input_file": "wheels/shared/urllib3-1.26.9-py2.py3-none-any.whl"
+            }
+        ]
+    }
+}
