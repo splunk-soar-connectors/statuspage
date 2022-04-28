@@ -172,6 +172,13 @@ class StatuspageConnector(BaseConnector):
 
         resp_json = None
 
+        if json:
+            api_key = "API Key {}".format(self._api_key)  # pragma: allowlist secret
+            headers = {'Content-Type': 'application/json', 'Authorization': api_key}
+        else:
+            api_key = "API Key {}".format(self._api_key)  # pragma: allowlist secret
+            headers = {'Authorization': api_key}
+
         try:
             request_func = getattr(requests, method)
         except AttributeError:
@@ -215,13 +222,11 @@ class StatuspageConnector(BaseConnector):
         action_result = self.add_action_result(ActionResult(dict(param)))
 
         self.save_progress("Starting connectivity test")
-        # make rest call
-        api_key = "API Key {}".format(self._api_key)  # pragma: allowlist secret
-        headers = {'Authorization': api_key}
 
+        # make rest call
         endpoint = 'pages/{}/incidents'.format(self._page_id)  # pragma: allowlist secret
 
-        ret_val, _ = self._make_rest_call(endpoint, action_result, headers=headers)
+        ret_val, _ = self._make_rest_call(endpoint, action_result)
 
         if phantom.is_fail(ret_val):
             return action_result.get_status()
@@ -236,14 +241,11 @@ class StatuspageConnector(BaseConnector):
 
         action_result = self.add_action_result(ActionResult(dict(param)))
 
-        api_key = "API Key {}".format(self._api_key)  # pragma: allowlist secret
-        headers = {'Authorization': api_key}
-
         incident_id = param.get('incident_id')
 
         endpoint = 'pages/{0}/incidents/{1}'.format(self._page_id, incident_id)  # pragma: allowlist secret
 
-        ret_val, response = self._make_rest_call(endpoint, action_result, headers=headers)
+        ret_val, response = self._make_rest_call(endpoint, action_result)
 
         if phantom.is_fail(ret_val):
             return action_result.get_status()
@@ -258,9 +260,6 @@ class StatuspageConnector(BaseConnector):
         self.save_progress("In action handler for: {0}".format(self.get_action_identifier()))
 
         action_result = self.add_action_result(ActionResult(dict(param)))
-
-        api_key = "API Key {}".format(self._api_key)  # pragma: allowlist secret
-        headers = {'Authorization': api_key}
 
         parameters = dict()
         query = param.get('query')
@@ -277,7 +276,7 @@ class StatuspageConnector(BaseConnector):
         endpoint = 'pages/{}/incidents'.format(self._page_id)  # pragma: allowlist secret
         endpoint += '?{}'.format(parameters)
 
-        ret_val, response = self._make_rest_call(endpoint, action_result, headers=headers, params=parameters)
+        ret_val, response = self._make_rest_call(endpoint, action_result, params=parameters)
 
         if phantom.is_fail(ret_val):
             return action_result.get_status()
@@ -295,9 +294,6 @@ class StatuspageConnector(BaseConnector):
         self.save_progress("In action handler for: {0}".format(self.get_action_identifier()))
         action_result = self.add_action_result(ActionResult(dict(param)))
 
-        api_key = "API Key {}".format(self._api_key)  # pragma: allowlist secret
-        headers = {'Content-Type': 'application/json', 'Authorization': api_key}
-
         data = dict()
 
         components = dict()
@@ -313,7 +309,7 @@ class StatuspageConnector(BaseConnector):
         }
 
         endpoint = 'pages/{}/incidents'.format(self._page_id)  # pragma: allowlist secret
-        ret_val, response = self._make_rest_call(endpoint, action_result, json=data, headers=headers, method="post")
+        ret_val, response = self._make_rest_call(endpoint, action_result, json=data, method="post")
 
         if phantom.is_fail(ret_val):
             return action_result.get_status()
@@ -327,9 +323,6 @@ class StatuspageConnector(BaseConnector):
         self.save_progress("In action handler for: {0}".format(self.get_action_identifier()))
         action_result = self.add_action_result(ActionResult(dict(param)))
 
-        api_key = "API Key {}".format(self._api_key)  # pragma: allowlist secret
-        headers = {'Content-Type': 'application/json', 'Authorization': api_key}
-
         data = dict()
         components = dict()
         ret_val, components = self._get_fields(param, action_result)
@@ -342,33 +335,24 @@ class StatuspageConnector(BaseConnector):
         body = param.get('body')
         component_ids = param.get('component_ids')
 
+        incident = dict()
         if name:
-            data['incident'] = {
-                'name': name
-            }
+            incident['name'] = name
         if status:
-            data['incident'] = {
-                'status': status
-            }
+            incident['status'] = status
         if impact_override:
-            data['incident'] = {
-                'impact_override': impact_override
-            }
+            incident['impact_override'] = impact_override
         if body:
-            data['incident'] = {
-                'body': body
-            }
+            incident['body'] = body
         if component_ids:
-            data['incident'] = {
-                'component_ids': component_ids
-            }
+            incident['component_ids'] = component_ids
         if components:
-            data['incident'] = {
-                'components': components
-            }
+            incident['components'] = components
+
+        data['incident'] = incident
 
         endpoint = 'pages/{0}/incidents/{1}'.format(self._page_id, incident_id)  # pragma: allowlist secret
-        ret_val, response = self._make_rest_call(endpoint, action_result, headers=headers, json=data, method="patch")
+        ret_val, response = self._make_rest_call(endpoint, action_result, json=data, method="patch")
 
         if phantom.is_fail(ret_val):
             return action_result.get_status()
@@ -400,9 +384,6 @@ class StatuspageConnector(BaseConnector):
         self.save_progress("In action handler for: {0}".format(self.get_action_identifier()))
         action_result = self.add_action_result(ActionResult(dict(param)))
 
-        api_key = "API Key {}".format(self._api_key)  # pragma: allowlist secret
-        headers = {'Content-Type': 'application/json', 'Authorization': api_key}
-
         incident_id = param.get('incident_id')
 
         data = dict()
@@ -414,7 +395,7 @@ class StatuspageConnector(BaseConnector):
         }
 
         endpoint = 'pages/{0}/incidents/{1}/subscribers'.format(self._page_id, incident_id)  # pragma: allowlist secret
-        ret_val, response = self._make_rest_call(endpoint, action_result, headers=headers, json=data, method='post')
+        ret_val, response = self._make_rest_call(endpoint, action_result, json=data, method='post')
 
         if phantom.is_fail(ret_val):
             return action_result.get_status()
@@ -428,13 +409,10 @@ class StatuspageConnector(BaseConnector):
         self.save_progress("In action handler for: {0}".format(self.get_action_identifier()))
         action_result = self.add_action_result(ActionResult(dict(param)))
 
-        api_key = "API Key {}".format(self._api_key)  # pragma: allowlist secret
-        headers = {'Authorization': api_key}
-
         incident_id = param.get('incident_id')
         endpoint = 'pages/{0}/incidents/{1}/subscribers'.format(self._page_id, incident_id)  # pragma: allowlist secret
 
-        ret_val, response = self._make_rest_call(endpoint, action_result, headers=headers)
+        ret_val, response = self._make_rest_call(endpoint, action_result)
 
         if phantom.is_fail(ret_val):
             return action_result.get_status()

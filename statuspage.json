@@ -13,7 +13,9 @@
     "min_phantom_version": "5.2.0",
     "python_version": "3",
     "fips_compliant": true,
-    "latest_tested_versions": [],
+    "latest_tested_versions": [
+        "Statuspage 2022-04-28, API Version: V1"
+    ],
     "publisher": "Splunk",
     "logo": "logo_statuspage.svg",
     "logo_dark": "logo_statuspage_dark.svg",
@@ -72,6 +74,7 @@
                 "limit": {
                     "description": "The maximum number of rows to return per page (default and max: 100)",
                     "data_type": "numeric",
+                    "default": 100,
                     "order": 1
                 },
                 "page_offset": {
@@ -92,7 +95,7 @@
                 {
                     "data_path": "action_result.parameter.limit",
                     "data_type": "numeric",
-                    "example_value": ""
+                    "example_value": 10
                 },
                 {
                     "data_path": "action_result.parameter.page_offset",
@@ -102,7 +105,9 @@
                 {
                     "data_path": "action_result.parameter.query",
                     "data_type": "string",
-                    "example_value": ""
+                    "example_values": [
+                        "Test incident"
+                    ]
                 },
                 {
                     "data_path": "action_result.data.*.components.*.created_at",
@@ -423,7 +428,7 @@
         },
         {
             "action": "get incident",
-            "description": "Get an incident",
+            "description": "Get an incident's details",
             "type": "investigate",
             "identifier": "get_incident",
             "read_only": true,
@@ -451,7 +456,7 @@
                 {
                     "data_path": "action_result.parameter.incident_id",
                     "data_type": "string",
-                    "example_value": "",
+                    "example_value": "hvz1scn66x3z",
                     "contains": [
                         "incident id"
                     ]
@@ -800,6 +805,7 @@
                 },
                 "phone_country": {
                     "description": "Two-character country code",
+                    "verbose": "The two-character country code is where the phone number is located to use for the new SMS subscriber",
                     "data_type": "string",
                     "order": 2,
                     "contains": [
@@ -818,6 +824,7 @@
                 },
                 "skip_confirmation_notification": {
                     "description": "If true, the subscriber does not receive any notifications when their subscription changes",
+                    "verbose": "Email subscribers will be automatically opted in",
                     "data_type": "boolean",
                     "order": 4
                 }
@@ -839,7 +846,9 @@
                 {
                     "data_path": "action_result.parameter.email",
                     "data_type": "string",
-                    "example_value": "",
+                    "example_value": [
+                        "phantom_test@gmail.com"
+                    ],
                     "contains": [
                         "email id"
                     ]
@@ -855,7 +864,7 @@
                 {
                     "data_path": "action_result.parameter.phone_country",
                     "data_type": "string",
-                    "example_value": "",
+                    "example_value": "US",
                     "contains": [
                         "country code"
                     ]
@@ -863,7 +872,7 @@
                 {
                     "data_path": "action_result.parameter.phone_number",
                     "data_type": "string",
-                    "example_value": "",
+                    "example_value": "+1 (202) 555-0105",
                     "contains": [
                         "phone number"
                     ]
@@ -967,7 +976,7 @@
                     "primary": true
                 },
                 "status": {
-                    "description": "Incident status (investigating, identified, monitoring, resolved). Default is investigating",
+                    "description": "Incident status. Default is investigating",
                     "data_type": "string",
                     "order": 1,
                     "contains": [
@@ -979,10 +988,12 @@
                         "monitoring",
                         "resolved"
                     ],
+                    "default": "investigating",
                     "primary": true
                 },
                 "impact_override": {
-                    "description": "Select value to override calculated impact value (none, maintenance, minor, major, critical). Default is none",
+                    "description": "Select value to override calculated impact value",
+                    "verbose": "While creating an incident the default impact value assigned is None",
                     "data_type": "string",
                     "order": 2,
                     "contains": [
@@ -998,7 +1009,8 @@
                     "primary": true
                 },
                 "body": {
-                    "description": "The initial message, created as the first incident update",
+                    "description": "Write a initial message, created as the first incident update",
+                    "verbose": "If no message is provided then default message is created based on the incident status selected",
                     "data_type": "string",
                     "order": 3,
                     "contains": [
@@ -1007,13 +1019,13 @@
                     "primary": true
                 },
                 "component_ids": {
-                    "description": "List of component ids affected by this incident",
+                    "description": "Specify component's id affected by this incident. Separate multiple ids with commas",
                     "data_type": "string",
                     "order": 4
                 },
                 "components": {
-                    "description": "A JSON object of component affected and status",
-                    "verbose": "Map of status changes to apply to affected components",
+                    "description": "A JSON object of 'component affected' and 'status'",
+                    "verbose": "Map of status changes to apply to affected components. Please specify id's in component_ids field as well while populating this field. Valid status to apply are 'operational', 'under_maintenancedegraded_performance', 'degraded_performance', 'partial_outage' and 'major_outage'",
                     "data_type": "string",
                     "order": 5
                 }
@@ -1035,16 +1047,9 @@
                 {
                     "data_path": "action_result.parameter.body",
                     "data_type": "string",
-                    "example_value": "",
+                    "example_value": "We are currently investigating this issue",
                     "contains": [
                         "incident body"
-                    ]
-                },
-                {
-                    "data_path": "action_result.parameter.components",
-                    "data_type": "string",
-                    "example_values": [
-                        "{\"fz7cfjdzg9hs\": \"operational\", \"nmxlwqgr3vbx\": \"partial_outage\"}"
                     ]
                 },
                 {
@@ -1056,9 +1061,16 @@
                     ]
                 },
                 {
+                    "data_path": "action_result.parameter.components",
+                    "data_type": "string",
+                    "example_values": [
+                        "{\"fz7cfjdzg9hs\": \"operational\", \"nmxlwqgr3vbx\": \"partial_outage\"}"
+                    ]
+                },
+                {
                     "data_path": "action_result.parameter.impact_override",
                     "data_type": "string",
-                    "example_value": "",
+                    "example_value": "minor",
                     "contains": [
                         "incident impact value"
                     ]
@@ -1076,7 +1088,7 @@
                 {
                     "data_path": "action_result.parameter.status",
                     "data_type": "string",
-                    "example_value": "",
+                    "example_value": "investigating",
                     "contains": [
                         "incident status"
                     ]
@@ -1324,7 +1336,7 @@
                     "primary": true
                 },
                 "status": {
-                    "description": "Update Incident status (investigating, identified, monitoring, resolved)",
+                    "description": "Update Incident status",
                     "data_type": "string",
                     "order": 2,
                     "contains": [
@@ -1339,7 +1351,7 @@
                     "primary": true
                 },
                 "impact_override": {
-                    "description": "Select value to override calculated impact value (none, maintenance, minor, major, critical)",
+                    "description": "Select value to override impact value",
                     "data_type": "string",
                     "order": 3,
                     "contains": [
@@ -1364,7 +1376,7 @@
                     "primary": true
                 },
                 "component_ids": {
-                    "description": "List of component ids affected by this incident",
+                    "description": "Specify component's id affected by this incident. Separate multiple ids with commas",
                     "data_type": "string",
                     "order": 5,
                     "example": [
@@ -1373,7 +1385,8 @@
                     ]
                 },
                 "components": {
-                    "description": "Map of status changes to apply to affected components",
+                    "description": "A JSON object of 'component affected' and 'status'",
+                    "verbose": "Map of status changes to apply to affected components. Please specify id's in component_ids field as well while populating this field if component ids were not specified while creating the incident. Valid status to apply are 'operational', 'under_maintenancedegraded_performance', 'degraded_performance', 'partial_outage' and 'major_outage'",
                     "data_type": "string",
                     "order": 6,
                     "example": {
@@ -1399,16 +1412,9 @@
                 {
                     "data_path": "action_result.parameter.body",
                     "data_type": "string",
-                    "example_value": "",
+                    "example_value": "We are currently investigating this issue",
                     "contains": [
                         "incident body"
-                    ]
-                },
-                {
-                    "data_path": "action_result.parameter.components",
-                    "data_type": "string",
-                    "example_values": [
-                        "{\"fz7cfjdzg9hs\": \"operational\", \"nmxlwqgr3vbx\": \"partial_outage\"}"
                     ]
                 },
                 {
@@ -1420,9 +1426,16 @@
                     ]
                 },
                 {
+                    "data_path": "action_result.parameter.components",
+                    "data_type": "string",
+                    "example_values": [
+                        "{\"fz7cfjdzg9hs\": \"operational\", \"nmxlwqgr3vbx\": \"partial_outage\"}"
+                    ]
+                },
+                {
                     "data_path": "action_result.parameter.impact_override",
                     "data_type": "string",
-                    "example_value": "",
+                    "example_value": "minor",
                     "contains": [
                         "incident impact value"
                     ]
@@ -1446,7 +1459,7 @@
                 {
                     "data_path": "action_result.parameter.status",
                     "data_type": "string",
-                    "example_value": "",
+                    "example_value": "investigating",
                     "contains": [
                         "incident status"
                     ]
