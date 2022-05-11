@@ -24,3 +24,5 @@ STATUSPAGE_ERR_CONNECTING_TO_SERVER = "Error connecting to server. Details: {err
 STATUSPAGE_STATE_FILE_CORRUPT_ERR = "Error occurred while loading the state file due to its unexpected format. \
 Resetting the state file with the default format. Please try again."
 STATUSPAGE_ERR_FIELDS_JSON_PARSE = "Unable to parse the fields parameter into a dictionary. {error}"
+STATUSPAGE_LIMIT_VALIDATION_ALLOW_ZERO_MSG = "Please provide zero or positive integer value in the {parameter} parameter."
+STATUSPAGE_LIMIT_VALIDATION_MSG = "Please provide a valid non-zero positive integer value in the {parameter} parameter."

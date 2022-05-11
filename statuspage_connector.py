@@ -193,7 +193,7 @@ class StatuspageConnector(BaseConnector):
                         data=data,
                         json=json,
                         headers=headers,
-                        verify=config.get('verify_server_cert', False),
+                        verify=True,
                         params=params)
         except requests.exceptions.InvalidURL as e:
             self.debug_print(self._get_error_message_from_exception(e))
@@ -216,6 +216,41 @@ class StatuspageConnector(BaseConnector):
             )
 
         return self._process_response(r, action_result)
+
+    def _validate_integers(self, action_result, parameter, key, allow_zero=False):
+        """Validate the provided input parameter value is a non-zero positive integer and returns the integer value of the parameter itself.
+
+        Parameters:
+            :param action_result: object of ActionResult class
+            :param parameter: input parameter
+            :param key: string value of parameter name
+            :param allow_zero: indicator for given parameter that whether zero value is allowed or not
+        Returns:
+            :return: integer value of the parameter
+        """
+        try:
+            parameter = int(parameter)
+
+            if parameter <= 0:
+                if allow_zero:
+                    if parameter < 0:
+                        action_result.set_status(phantom.APP_ERROR, STATUSPAGE_LIMIT_VALIDATION_ALLOW_ZERO_MSG.format(parameter=key))
+                        return None
+                else:
+                    action_result.set_status(phantom.APP_ERROR, STATUSPAGE_LIMIT_VALIDATION_MSG.format(parameter=key))
+                    return None
+        except Exception as e:
+            self.debug_print(
+                "Integer validation failed. Error occurred while validating integer value. Error: {}".format(str(e))
+            )
+            if allow_zero:
+                error_text = STATUSPAGE_LIMIT_VALIDATION_ALLOW_ZERO_MSG.format(parameter=key)
+            else:
+                error_text = STATUSPAGE_LIMIT_VALIDATION_MSG.format(parameter=key)
+            action_result.set_status(phantom.APP_ERROR, error_text)
+            return None
+
+        return parameter
 
     def _handle_test_connectivity(self, param):
 
@@ -265,6 +300,10 @@ class StatuspageConnector(BaseConnector):
         query = param.get('query')
         limit = param.get('limit')
         page = param.get('page_offset')
+
+        limit = self._validate_integers(action_result, param.get('limit', 100), 'limit')
+        if limit is None:
+            return action_result.get_status(), None
 
         if query:
             parameters['q'] = query
@@ -384,11 +423,11 @@ class StatuspageConnector(BaseConnector):
         self.save_progress("In action handler for: {0}".format(self.get_action_identifier()))
         action_result = self.add_action_result(ActionResult(dict(param)))
 
-        incident_id = param.get('incident_id')
+        incident_id = param['incident_id']
 
         data = dict()
         data['subscriber'] = {
-            'email': param.get('email'),
+            'email': param['email'],
             'phone_country': param.get('phone_country'),
             'phone_number': param.get('phone_number'),
             'skip_confirmation_notification': param.get('skip_confirmation_notification')

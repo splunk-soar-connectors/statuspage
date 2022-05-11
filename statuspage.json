@@ -99,8 +99,7 @@
                 },
                 {
                     "data_path": "action_result.parameter.page_offset",
-                    "data_type": "numeric",
-                    "example_value": ""
+                    "data_type": "numeric"
                 },
                 {
                     "data_path": "action_result.parameter.query",
@@ -116,13 +115,11 @@
                 },
                 {
                     "data_path": "action_result.data.*.components.*.description",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.components.*.group_id",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.components.*.id",
@@ -180,6 +177,26 @@
                     "column_name": "Incident ID"
                 },
                 {
+                    "data_path": "action_result.data.*.name",
+                    "data_type": "string",
+                    "example_value": "phan test incident",
+                    "contains": [
+                        "incident name"
+                    ],
+                    "column_order": 1,
+                    "column_name": "Incident Name"
+                },
+                {
+                    "data_path": "action_result.data.*.status",
+                    "data_type": "string",
+                    "example_value": "identified",
+                    "contains": [
+                        "incident status"
+                    ],
+                    "column_order": 2,
+                    "column_name": "Incident Status"
+                },
+                {
                     "data_path": "action_result.data.*.impact",
                     "data_type": "string",
                     "example_value": "none",
@@ -196,8 +213,7 @@
                 },
                 {
                     "data_path": "action_result.data.*.incident_updates.*.affected_components",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.incident_updates.*.affected_components.*.code",
@@ -231,8 +247,7 @@
                 },
                 {
                     "data_path": "action_result.data.*.incident_updates.*.custom_tweet",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.incident_updates.*.deliver_notifications",
@@ -261,13 +276,11 @@
                 },
                 {
                     "data_path": "action_result.data.*.incident_updates.*.tweet_id",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.incident_updates.*.twitter_updated_at",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.incident_updates.*.updated_at",
@@ -281,18 +294,7 @@
                 },
                 {
                     "data_path": "action_result.data.*.monitoring_at",
-                    "data_type": "string",
-                    "example_value": ""
-                },
-                {
-                    "data_path": "action_result.data.*.name",
-                    "data_type": "string",
-                    "example_value": "phan test incident",
-                    "contains": [
-                        "incident name"
-                    ],
-                    "column_order": 1,
-                    "column_name": "Incident Name"
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.page_id",
@@ -301,13 +303,11 @@
                 },
                 {
                     "data_path": "action_result.data.*.postmortem_body",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.postmortem_body_last_updated_at",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.postmortem_ignored",
@@ -326,13 +326,11 @@
                 },
                 {
                     "data_path": "action_result.data.*.postmortem_published_at",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.resolved_at",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.scheduled_auto_completed",
@@ -346,8 +344,7 @@
                 },
                 {
                     "data_path": "action_result.data.*.scheduled_for",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.scheduled_remind_prior",
@@ -356,13 +353,11 @@
                 },
                 {
                     "data_path": "action_result.data.*.scheduled_reminded_at",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.scheduled_until",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.shortlink",
@@ -373,16 +368,6 @@
                     "data_path": "action_result.data.*.started_at",
                     "data_type": "string",
                     "example_value": "2022-04-25T12:39:28.598Z"
-                },
-                {
-                    "data_path": "action_result.data.*.status",
-                    "data_type": "string",
-                    "example_value": "identified",
-                    "contains": [
-                        "incident status"
-                    ],
-                    "column_order": 2,
-                    "column_name": "Incident Status"
                 },
                 {
                     "data_path": "action_result.data.*.updated_at",
@@ -473,8 +458,7 @@
                 },
                 {
                     "data_path": "action_result.data.*.components.*.description",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.components.*.group",
@@ -483,8 +467,7 @@
                 },
                 {
                     "data_path": "action_result.data.*.components.*.group_id",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.components.*.id",
@@ -544,7 +527,27 @@
                         "incident id"
                     ],
                     "column_order": 0,
-                    "column_name": "Incident Id"
+                    "column_name": "Incident ID"
+                },
+                {
+                    "data_path": "action_result.data.*.name",
+                    "data_type": "string",
+                    "example_value": "string",
+                    "contains": [
+                        "incident name"
+                    ],
+                    "column_order": 1,
+                    "column_name": "Incident Name"
+                },
+                {
+                    "data_path": "action_result.data.*.status",
+                    "data_type": "string",
+                    "example_value": "resolved",
+                    "contains": [
+                        "incident status"
+                    ],
+                    "column_order": 2,
+                    "column_name": "Incident Status"
                 },
                 {
                     "data_path": "action_result.data.*.impact",
@@ -558,8 +561,7 @@
                 },
                 {
                     "data_path": "action_result.data.*.impact_override",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.incident_updates.*.affected_components.*.code",
@@ -593,8 +595,7 @@
                 },
                 {
                     "data_path": "action_result.data.*.incident_updates.*.custom_tweet",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.incident_updates.*.deliver_notifications",
@@ -623,13 +624,11 @@
                 },
                 {
                     "data_path": "action_result.data.*.incident_updates.*.tweet_id",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.incident_updates.*.twitter_updated_at",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.incident_updates.*.updated_at",
@@ -645,16 +644,6 @@
                     "data_path": "action_result.data.*.monitoring_at",
                     "data_type": "string",
                     "example_value": "2022-04-21T06:15:03Z"
-                },
-                {
-                    "data_path": "action_result.data.*.name",
-                    "data_type": "string",
-                    "example_value": "string",
-                    "contains": [
-                        "incident name"
-                    ],
-                    "column_order": 1,
-                    "column_name": "Incident Name"
                 },
                 {
                     "data_path": "action_result.data.*.page_id",
@@ -708,8 +697,7 @@
                 },
                 {
                     "data_path": "action_result.data.*.scheduled_for",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.scheduled_remind_prior",
@@ -718,28 +706,16 @@
                 },
                 {
                     "data_path": "action_result.data.*.scheduled_reminded_at",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.scheduled_until",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.shortlink",
                     "data_type": "string",
                     "example_value": "https://stspg.io/knjhkxkcfgxk"
-                },
-                {
-                    "data_path": "action_result.data.*.status",
-                    "data_type": "string",
-                    "example_value": "resolved",
-                    "contains": [
-                        "incident status"
-                    ],
-                    "column_order": 2,
-                    "column_name": "Incident Status"
                 },
                 {
                     "data_path": "action_result.data.*.updated_at",
@@ -795,17 +771,17 @@
                     "primary": true
                 },
                 "email": {
-                    "description": " Email address for creating email subscriber",
+                    "description": "Email address for creating email subscriber",
                     "data_type": "string",
                     "order": 1,
                     "contains": [
                         "email id"
                     ],
-                    "primary": true
+                    "primary": true,
+                    "required": true
                 },
                 "phone_country": {
                     "description": "Two-character country code",
-                    "verbose": "The two-character country code is where the phone number is located to use for the new SMS subscriber",
                     "data_type": "string",
                     "order": 2,
                     "contains": [
@@ -824,25 +800,11 @@
                 },
                 "skip_confirmation_notification": {
                     "description": "If true, the subscriber does not receive any notifications when their subscription changes",
-                    "verbose": "Email subscribers will be automatically opted in",
                     "data_type": "boolean",
                     "order": 4
                 }
             },
             "output": [
-                {
-                    "data_path": "action_result.status",
-                    "data_type": "string",
-                    "example_values": [
-                        "success",
-                        "failed"
-                    ],
-                    "contains": [
-                        "status"
-                    ],
-                    "column_order": 2,
-                    "column_name": "Status"
-                },
                 {
                     "data_path": "action_result.parameter.email",
                     "data_type": "string",
@@ -856,7 +818,6 @@
                 {
                     "data_path": "action_result.parameter.incident_id",
                     "data_type": "string",
-                    "example_value": "",
                     "contains": [
                         "incident id"
                     ]
@@ -879,13 +840,22 @@
                 },
                 {
                     "data_path": "action_result.parameter.skip_confirmation_notification",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.created_at",
                     "data_type": "string",
                     "example_value": "2022-04-26T05:32:08Z"
+                },
+                {
+                    "data_path": "action_result.data.*.id",
+                    "data_type": "string",
+                    "example_value": "86qs8rfn5pnd",
+                    "contains": [
+                        "subscriber id"
+                    ],
+                    "column_order": 0,
+                    "column_name": "Subscriber ID"
                 },
                 {
                     "data_path": "action_result.data.*.email",
@@ -895,17 +865,17 @@
                         "email id"
                     ],
                     "column_order": 1,
-                    "column_name": "Subscriber Email Id"
+                    "column_name": "Subscriber Email ID"
                 },
                 {
-                    "data_path": "action_result.data.*.id",
+                    "data_path": "action_result.status",
                     "data_type": "string",
-                    "example_value": "86qs8rfn5pnd",
-                    "contains": [
-                        "incident id"
+                    "example_values": [
+                        "success",
+                        "failed"
                     ],
-                    "column_order": 0,
-                    "column_name": "Incident Id"
+                    "column_order": 2,
+                    "column_name": "Status"
                 },
                 {
                     "data_path": "action_result.data.*.mode",
@@ -914,13 +884,11 @@
                 },
                 {
                     "data_path": "action_result.data.*.purge_at",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.quarantined_at",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.skip_confirmation_notification",
@@ -993,7 +961,6 @@
                 },
                 "impact_override": {
                     "description": "Select value to override calculated impact value",
-                    "verbose": "While creating an incident the default impact value assigned is None",
                     "data_type": "string",
                     "order": 2,
                     "contains": [
@@ -1010,7 +977,6 @@
                 },
                 "body": {
                     "description": "Write a initial message, created as the first incident update",
-                    "verbose": "If no message is provided then default message is created based on the incident status selected",
                     "data_type": "string",
                     "order": 3,
                     "contains": [
@@ -1025,21 +991,36 @@
                 },
                 "components": {
                     "description": "A JSON object of 'component affected' and 'status'",
-                    "verbose": "Map of status changes to apply to affected components. Please specify id's in component_ids field as well while populating this field. Valid status to apply are 'operational', 'under_maintenancedegraded_performance', 'degraded_performance', 'partial_outage' and 'major_outage'",
                     "data_type": "string",
                     "order": 5
                 }
             },
             "output": [
                 {
+                    "data_path": "action_result.data.*.id",
+                    "data_type": "string",
+                    "example_value": "chxvv9qr6d9p",
+                    "contains": [
+                        "incident id"
+                    ],
+                    "column_order": 0,
+                    "column_name": "Incident ID"
+                },
+                {
+                    "data_path": "action_result.parameter.name",
+                    "data_type": "string",
+                    "contains": [
+                        "incident name"
+                    ],
+                    "column_order": 1,
+                    "column_name": "Incident Name"
+                },
+                {
                     "data_path": "action_result.status",
                     "data_type": "string",
                     "example_values": [
                         "success",
                         "failed"
-                    ],
-                    "contains": [
-                        "status"
                     ],
                     "column_order": 2,
                     "column_name": "Status"
@@ -1076,16 +1057,6 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.parameter.name",
-                    "data_type": "string",
-                    "example_value": "",
-                    "contains": [
-                        "incident name"
-                    ],
-                    "column_order": 1,
-                    "column_name": "Incident Name"
-                },
-                {
                     "data_path": "action_result.parameter.status",
                     "data_type": "string",
                     "example_value": "investigating",
@@ -1099,29 +1070,17 @@
                     "example_value": "2022-04-25T18:57:25Z"
                 },
                 {
-                    "data_path": "action_result.data.*.id",
-                    "data_type": "string",
-                    "example_value": "chxvv9qr6d9p",
-                    "contains": [
-                        "incident id"
-                    ],
-                    "column_order": 0,
-                    "column_name": "Incident Id"
-                },
-                {
                     "data_path": "action_result.data.*.impact",
                     "data_type": "string",
                     "example_value": "none"
                 },
                 {
                     "data_path": "action_result.data.*.impact_override",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.incident_updates.*.affected_components",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.incident_updates.*.body",
@@ -1135,8 +1094,7 @@
                 },
                 {
                     "data_path": "action_result.data.*.incident_updates.*.custom_tweet",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.incident_updates.*.deliver_notifications",
@@ -1165,13 +1123,11 @@
                 },
                 {
                     "data_path": "action_result.data.*.incident_updates.*.tweet_id",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.incident_updates.*.twitter_updated_at",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.incident_updates.*.updated_at",
@@ -1185,8 +1141,7 @@
                 },
                 {
                     "data_path": "action_result.data.*.monitoring_at",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.name",
@@ -1200,13 +1155,11 @@
                 },
                 {
                     "data_path": "action_result.data.*.postmortem_body",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.postmortem_body_last_updated_at",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.postmortem_ignored",
@@ -1225,13 +1178,11 @@
                 },
                 {
                     "data_path": "action_result.data.*.postmortem_published_at",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.resolved_at",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.scheduled_auto_completed",
@@ -1245,8 +1196,7 @@
                 },
                 {
                     "data_path": "action_result.data.*.scheduled_for",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.scheduled_remind_prior",
@@ -1255,13 +1205,11 @@
                 },
                 {
                     "data_path": "action_result.data.*.scheduled_reminded_at",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.scheduled_until",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.shortlink",
@@ -1386,7 +1334,6 @@
                 },
                 "components": {
                     "description": "A JSON object of 'component affected' and 'status'",
-                    "verbose": "Map of status changes to apply to affected components. Please specify id's in component_ids field as well while populating this field if component ids were not specified while creating the incident. Valid status to apply are 'operational', 'under_maintenancedegraded_performance', 'degraded_performance', 'partial_outage' and 'major_outage'",
                     "data_type": "string",
                     "order": 6,
                     "example": {
@@ -1397,14 +1344,31 @@
             },
             "output": [
                 {
+                    "data_path": "action_result.data.*.id",
+                    "data_type": "string",
+                    "example_value": "chxvv9qr6d9p",
+                    "contains": [
+                        "incident id"
+                    ],
+                    "column_order": 0,
+                    "column_name": "Incident ID"
+                },
+                {
+                    "data_path": "action_result.data.*.name",
+                    "data_type": "string",
+                    "example_value": "Test Incident 3",
+                    "contains": [
+                        "incident name"
+                    ],
+                    "column_order": 1,
+                    "column_name": "Incident Name"
+                },
+                {
                     "data_path": "action_result.status",
                     "data_type": "string",
                     "example_values": [
                         "success",
                         "failed"
-                    ],
-                    "contains": [
-                        "status"
                     ],
                     "column_order": 2,
                     "column_name": "Status"
@@ -1443,7 +1407,6 @@
                 {
                     "data_path": "action_result.parameter.incident_id",
                     "data_type": "string",
-                    "example_value": "",
                     "contains": [
                         "incident id"
                     ]
@@ -1451,7 +1414,6 @@
                 {
                     "data_path": "action_result.parameter.name",
                     "data_type": "string",
-                    "example_value": "",
                     "contains": [
                         "incident name"
                     ]
@@ -1470,16 +1432,6 @@
                     "example_value": "2022-04-25T18:57:25Z"
                 },
                 {
-                    "data_path": "action_result.data.*.id",
-                    "data_type": "string",
-                    "example_value": "chxvv9qr6d9p",
-                    "contains": [
-                        "incident id"
-                    ],
-                    "column_order": 0,
-                    "column_name": "Incident Id"
-                },
-                {
                     "data_path": "action_result.data.*.impact",
                     "data_type": "string",
                     "example_value": "minor"
@@ -1491,8 +1443,7 @@
                 },
                 {
                     "data_path": "action_result.data.*.incident_updates.*.affected_components",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.incident_updates.*.body",
@@ -1506,8 +1457,7 @@
                 },
                 {
                     "data_path": "action_result.data.*.incident_updates.*.custom_tweet",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.incident_updates.*.deliver_notifications",
@@ -1536,13 +1486,11 @@
                 },
                 {
                     "data_path": "action_result.data.*.incident_updates.*.tweet_id",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.incident_updates.*.twitter_updated_at",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.incident_updates.*.updated_at",
@@ -1556,18 +1504,7 @@
                 },
                 {
                     "data_path": "action_result.data.*.monitoring_at",
-                    "data_type": "string",
-                    "example_value": ""
-                },
-                {
-                    "data_path": "action_result.data.*.name",
-                    "data_type": "string",
-                    "example_value": "Test Incident 3",
-                    "contains": [
-                        "incident name"
-                    ],
-                    "column_order": 1,
-                    "column_name": "Incident Name"
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.page_id",
@@ -1576,13 +1513,11 @@
                 },
                 {
                     "data_path": "action_result.data.*.postmortem_body",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.postmortem_body_last_updated_at",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.postmortem_ignored",
@@ -1601,13 +1536,11 @@
                 },
                 {
                     "data_path": "action_result.data.*.postmortem_published_at",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.resolved_at",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.scheduled_auto_completed",
@@ -1621,8 +1554,7 @@
                 },
                 {
                     "data_path": "action_result.data.*.scheduled_for",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.scheduled_remind_prior",
@@ -1631,13 +1563,11 @@
                 },
                 {
                     "data_path": "action_result.data.*.scheduled_reminded_at",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.scheduled_until",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.shortlink",
@@ -1699,7 +1629,8 @@
                     "contains": [
                         "incident id"
                     ],
-                    "order": 0
+                    "order": 0,
+                    "primary": true
                 }
             },
             "output": [
@@ -1714,7 +1645,6 @@
                 {
                     "data_path": "action_result.parameter.incident_id",
                     "data_type": "string",
-                    "example_value": "",
                     "contains": [
                         "incident id"
                     ]
@@ -1725,16 +1655,6 @@
                     "example_value": "2022-04-26T05:32:08Z"
                 },
                 {
-                    "data_path": "action_result.data.*.email",
-                    "data_type": "string",
-                    "example_value": "test@gmail.com",
-                    "contains": [
-                        "email id"
-                    ],
-                    "column_order": 1,
-                    "column_name": "Subscriber Email Id"
-                },
-                {
                     "data_path": "action_result.data.*.id",
                     "data_type": "string",
                     "example_value": "86qs8rfn5pnd",
@@ -1742,7 +1662,17 @@
                         "subscriber id"
                     ],
                     "column_order": 0,
-                    "column_name": "Subscriber Id"
+                    "column_name": "Subscriber ID"
+                },
+                {
+                    "data_path": "action_result.data.*.email",
+                    "data_type": "string",
+                    "example_value": "test@gmail.com",
+                    "contains": [
+                        "email id"
+                    ],
+                    "column_order": 1,
+                    "column_name": "Subscriber Email ID"
                 },
                 {
                     "data_path": "action_result.data.*.mode",
@@ -1751,13 +1681,11 @@
                 },
                 {
                     "data_path": "action_result.data.*.purge_at",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.quarantined_at",
-                    "data_type": "string",
-                    "example_value": ""
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.skip_confirmation_notification",
