@@ -64,7 +64,7 @@ class StatuspageConnector(BaseConnector):
                     error_msg = e.args[1]
                 elif len(e.args) == 1:
                     error_msg = e.args[0]
-        except:
+        except Exception:
             pass
 
         if not error_code:
@@ -98,7 +98,7 @@ class StatuspageConnector(BaseConnector):
             split_lines = error_text.split('\n')
             split_lines = [x.strip() for x in split_lines if x.strip()]
             error_text = '\n'.join(split_lines)
-        except:
+        except Exception:
             error_text = "Cannot parse error details"
 
         message = "Status Code: {0}. Data from server:\n{1}\n".format(status_code,
@@ -131,7 +131,7 @@ class StatuspageConnector(BaseConnector):
             if resp_json.get('errors', [])[0][0].get('message'):
                 message = "Error from server. Status Code: {0} Data from server: {1}".format(
                     r.status_code, resp_json.get('errors', [])[0][0].get('message'))
-        except:
+        except Exception:
             pass
         return RetVal(action_result.set_status(phantom.APP_ERROR, message), None)
 
@@ -581,7 +581,7 @@ if __name__ == '__main__':
         connector = StatuspageConnector()
         connector.print_progress_message = True
 
-        if (session_id is not None):
+        if session_id is not None:
             in_json['user_session_token'] = session_id
             connector._set_csrf_info(csrftoken, headers['Referer'])
 
