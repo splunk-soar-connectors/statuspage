@@ -168,8 +168,6 @@ class StatuspageConnector(BaseConnector):
 
     def _make_rest_call(self, endpoint, action_result, headers=None, params=None, data=None, json=None, method="get", files=None):
 
-        config = self.get_config()
-
         resp_json = None
 
         if json:
@@ -298,16 +296,17 @@ class StatuspageConnector(BaseConnector):
 
         parameters = dict()
         query = param.get('query')
-        limit = param.get('limit')
+        limit = param.get('limit', 100)
         page = param.get('page_offset')
 
         limit = self._validate_integers(action_result, param.get('limit', 100), 'limit')
         if limit is None:
             return action_result.get_status(), None
 
-        page = self._validate_integers(action_result, page, 'page offset', allow_zero=True)
-        if page is None:
-            return action_result.get_status(), None
+        if page or page == 0:
+            page = self._validate_integers(action_result, page, 'page offset', allow_zero=True)
+            if page is None:
+                return action_result.get_status(), None
 
         if query:
             parameters['q'] = query
@@ -536,24 +535,26 @@ if __name__ == '__main__':
     argparser.add_argument('input_test_json', help='Input Test JSON file')
     argparser.add_argument('-u', '--username', help='username', required=False)
     argparser.add_argument('-p', '--password', help='password', required=False)
+    argparser.add_argument('-v', '--verify', action='store_true', help='verify', required=False, default=False)
 
     args = argparser.parse_args()
     session_id = None
 
     username = args.username
     password = args.password
+    verify = args.verify
 
-    if (username is not None and password is None):
+    if username is not None and password is None:
 
         # User specified a username but not a password, so ask
         import getpass
         password = getpass.getpass("Password: ")
 
-    if (username and password):
+    if username and password:
         try:
             login_url = StatuspageConnector._get_phantom_base_url() + '/login'
             print("Accessing the Login page")
-            r = requests.get(login_url, verify=False)
+            r = requests.get(login_url, verify=verify, timeout=60)
             csrftoken = r.cookies['csrftoken']
 
             data = dict()
@@ -566,7 +567,7 @@ if __name__ == '__main__':
             headers['Referer'] = login_url
 
             print("Logging into Platform to get the session id")
-            r2 = requests.post(login_url, verify=False, data=data, headers=headers)
+            r2 = requests.post(login_url, verify=verify, data=data, headers=headers, timeout=60)
             session_id = r2.cookies['sessionid']
         except Exception as e:
             print("Unable to get session id from the platform. Error: " + str(e))
