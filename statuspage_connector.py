@@ -305,6 +305,10 @@ class StatuspageConnector(BaseConnector):
         if limit is None:
             return action_result.get_status(), None
 
+        page = self._validate_integers(action_result, page, 'page offset', allow_zero=True)
+        if page is None:
+            return action_result.get_status(), None
+
         if query:
             parameters['q'] = query
         if limit:
