@@ -430,10 +430,10 @@ class StatuspageConnector(BaseConnector):
 
         data = dict()
         data['subscriber'] = {
-            'email': param['email'],
-            'phone_country': param.get('phone_country'),
-            'phone_number': param.get('phone_number'),
-            'skip_confirmation_notification': param.get('skip_confirmation_notification')
+            'email': param['email']
+            # 'phone_country': param.get('phone_country'),
+            # 'phone_number': param.get('phone_number'),
+            # 'skip_confirmation_notification': param.get('skip_confirmation_notification')
         }
 
         endpoint = 'pages/{0}/incidents/{1}/subscribers'.format(self._page_id, incident_id)  # pragma: allowlist secret

@@ -779,29 +779,6 @@
                     ],
                     "primary": true,
                     "required": true
-                },
-                "phone_country": {
-                    "description": "Two-character country code",
-                    "data_type": "string",
-                    "order": 2,
-                    "contains": [
-                        "country code"
-                    ],
-                    "primary": true
-                },
-                "phone_number": {
-                    "description": "Phone number for creating SMS subscriber",
-                    "data_type": "string",
-                    "order": 3,
-                    "contains": [
-                        "phone number"
-                    ],
-                    "primary": true
-                },
-                "skip_confirmation_notification": {
-                    "description": "If true, the subscriber does not receive any notifications when their subscription changes",
-                    "data_type": "boolean",
-                    "order": 4
                 }
             },
             "output": [
@@ -821,26 +798,6 @@
                     "contains": [
                         "incident id"
                     ]
-                },
-                {
-                    "data_path": "action_result.parameter.phone_country",
-                    "data_type": "string",
-                    "example_value": "US",
-                    "contains": [
-                        "country code"
-                    ]
-                },
-                {
-                    "data_path": "action_result.parameter.phone_number",
-                    "data_type": "string",
-                    "example_value": "+1 (202) 555-0105",
-                    "contains": [
-                        "phone number"
-                    ]
-                },
-                {
-                    "data_path": "action_result.parameter.skip_confirmation_notification",
-                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.created_at",
@@ -889,11 +846,6 @@
                 {
                     "data_path": "action_result.data.*.quarantined_at",
                     "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.data.*.skip_confirmation_notification",
-                    "data_type": "boolean",
-                    "example_value": false
                 },
                 {
                     "data_path": "action_result.summary",
