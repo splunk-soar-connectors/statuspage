@@ -15,7 +15,6 @@
 #
 #
 import json
-import sys
 
 import phantom.app as phantom
 import requests
@@ -65,7 +64,7 @@ class StatuspageConnector(BaseConnector):
                 elif len(e.args) == 1:
                     error_msg = e.args[0]
         except Exception:
-            pass
+            self.debug_print("Error occurred while getting message from html response")
 
         if not error_code:
             error_text = "Error Message: {}".format(error_msg)
@@ -132,7 +131,7 @@ class StatuspageConnector(BaseConnector):
                 message = "Error from server. Status Code: {0} Data from server: {1}".format(
                     r.status_code, resp_json.get('errors', [])[0][0].get('message'))
         except Exception:
-            pass
+            self.debug_print("Error occurred while getting message from json response")
         return RetVal(action_result.set_status(phantom.APP_ERROR, message), None)
 
     def _process_response(self, r, action_result):
@@ -166,16 +165,14 @@ class StatuspageConnector(BaseConnector):
 
         return RetVal(action_result.set_status(phantom.APP_ERROR, message), None)
 
-    def _make_rest_call(self, endpoint, action_result, headers=None, params=None, data=None, json=None, method="get", files=None):
+    def _make_rest_call(self, endpoint, action_result, headers=None, params=None, data=None, json=None, method="get"):
 
         resp_json = None
+        config = self.get_config()
+        headers = {'Authorization': "API Key {}".format(self._api_key)}
 
         if json:
-            api_key = "API Key {}".format(self._api_key)  # pragma: allowlist secret
-            headers = {'Content-Type': 'application/json', 'Authorization': api_key}
-        else:
-            api_key = "API Key {}".format(self._api_key)  # pragma: allowlist secret
-            headers = {'Authorization': api_key}
+            headers.update({'Content-Type': 'application/json'})
 
         try:
             request_func = getattr(requests, method)
@@ -192,7 +189,8 @@ class StatuspageConnector(BaseConnector):
                         json=json,
                         headers=headers,
                         verify=True,
-                        params=params)
+                        params=params,
+                        timeout=config.get("timeout"))
         except requests.exceptions.InvalidURL as e:
             self.debug_print(self._get_error_message_from_exception(e))
             return RetVal(action_result.set_status(phantom.APP_ERROR, STATUSPAGE_ERR_INVALID_URL.format(url=url)), resp_json)
@@ -257,7 +255,7 @@ class StatuspageConnector(BaseConnector):
         self.save_progress("Starting connectivity test")
 
         # make rest call
-        endpoint = 'pages/{}/incidents'.format(self._page_id)  # pragma: allowlist secret
+        endpoint = STATUSPAGE_INCIDENTS_ENDPOINT.format(self._page_id)
 
         ret_val, _ = self._make_rest_call(endpoint, action_result)
 
@@ -274,9 +272,9 @@ class StatuspageConnector(BaseConnector):
 
         action_result = self.add_action_result(ActionResult(dict(param)))
 
-        incident_id = param.get('incident_id')
+        incident_id = param['incident_id']
 
-        endpoint = 'pages/{0}/incidents/{1}'.format(self._page_id, incident_id)  # pragma: allowlist secret
+        endpoint = STATUSPAGE_FOR_INCIDENT_ENDPOINT.format(self._page_id, incident_id)
 
         ret_val, response = self._make_rest_call(endpoint, action_result)
 
@@ -296,7 +294,6 @@ class StatuspageConnector(BaseConnector):
 
         parameters = dict()
         query = param.get('query')
-        limit = param.get('limit', 100)
         page = param.get('page_offset')
 
         limit = self._validate_integers(action_result, param.get('limit', 100), 'limit')
@@ -315,8 +312,7 @@ class StatuspageConnector(BaseConnector):
         if page:
             parameters['page'] = page
 
-        endpoint = 'pages/{}/incidents'.format(self._page_id)  # pragma: allowlist secret
-        endpoint += '?{}'.format(parameters)
+        endpoint = STATUSPAGE_INCIDENTS_ENDPOINT.format(self._page_id)
 
         ret_val, response = self._make_rest_call(endpoint, action_result, params=parameters)
 
@@ -338,11 +334,10 @@ class StatuspageConnector(BaseConnector):
 
         data = dict()
 
-        components = dict()
         ret_val, components = self._get_fields(param, action_result)
 
         data["incident"] = {
-            "name": param.get('name'),
+            "name": param['name'],
             "status": param.get('status'),
             "impact_override": param.get('impact_override'),
             "body": param.get('body'),
@@ -350,7 +345,7 @@ class StatuspageConnector(BaseConnector):
             "components": components
         }
 
-        endpoint = 'pages/{}/incidents'.format(self._page_id)  # pragma: allowlist secret
+        endpoint = STATUSPAGE_INCIDENTS_ENDPOINT.format(self._page_id)
         ret_val, response = self._make_rest_call(endpoint, action_result, json=data, method="post")
 
         if phantom.is_fail(ret_val):
@@ -366,10 +361,9 @@ class StatuspageConnector(BaseConnector):
         action_result = self.add_action_result(ActionResult(dict(param)))
 
         data = dict()
-        components = dict()
         ret_val, components = self._get_fields(param, action_result)
 
-        incident_id = param.get('incident_id')
+        incident_id = param['incident_id']
 
         name = param.get('name')
         status = param.get('status')
@@ -393,7 +387,7 @@ class StatuspageConnector(BaseConnector):
 
         data['incident'] = incident
 
-        endpoint = 'pages/{0}/incidents/{1}'.format(self._page_id, incident_id)  # pragma: allowlist secret
+        endpoint = STATUSPAGE_FOR_INCIDENT_ENDPOINT.format(self._page_id, incident_id)
         ret_val, response = self._make_rest_call(endpoint, action_result, json=data, method="patch")
 
         if phantom.is_fail(ret_val):
@@ -436,7 +430,7 @@ class StatuspageConnector(BaseConnector):
             # 'skip_confirmation_notification': param.get('skip_confirmation_notification')
         }
 
-        endpoint = 'pages/{0}/incidents/{1}/subscribers'.format(self._page_id, incident_id)  # pragma: allowlist secret
+        endpoint = STATUSPAGE_FOR_INCIDENT_ENDPOINT.format(self._page_id, incident_id) + '/subscribers'
         ret_val, response = self._make_rest_call(endpoint, action_result, json=data, method='post')
 
         if phantom.is_fail(ret_val):
@@ -451,8 +445,8 @@ class StatuspageConnector(BaseConnector):
         self.save_progress("In action handler for: {0}".format(self.get_action_identifier()))
         action_result = self.add_action_result(ActionResult(dict(param)))
 
-        incident_id = param.get('incident_id')
-        endpoint = 'pages/{0}/incidents/{1}/subscribers'.format(self._page_id, incident_id)  # pragma: allowlist secret
+        incident_id = param['incident_id']
+        endpoint = STATUSPAGE_FOR_INCIDENT_ENDPOINT.format(self._page_id, incident_id) + '/subscribers'
 
         ret_val, response = self._make_rest_call(endpoint, action_result)
 
@@ -463,7 +457,7 @@ class StatuspageConnector(BaseConnector):
             action_result.add_data(incident)
 
         summary = action_result.set_summary({})
-        summary['num of subscribers'] = len(response)
+        summary['num_of_subscribers'] = len(response)
 
         return action_result.set_status(phantom.APP_SUCCESS)
 
@@ -503,7 +497,6 @@ class StatuspageConnector(BaseConnector):
             self._state = {
                 "app_version": self.get_app_json().get('app_version')
             }
-            return self.set_status(phantom.APP_ERROR, STATUSPAGE_STATE_FILE_CORRUPT_ERR)
 
         config = self.get_config()
         self._base_url = config['base_url']
@@ -525,6 +518,7 @@ class StatuspageConnector(BaseConnector):
 if __name__ == '__main__':
 
     import argparse
+    import sys
 
     import pudb
 

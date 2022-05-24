@@ -16,6 +16,10 @@
 # Constants relating to 'get_error_message_from_exception'
 ERR_MSG_UNAVAILABLE = "Error message unavailable. Please check the asset configuration and|or action parameters."
 
+# Constants relating to endpoint
+STATUSPAGE_FOR_INCIDENT_ENDPOINT = "pages/{0}/incidents/{1}"
+STATUSPAGE_INCIDENTS_ENDPOINT = "pages/{}/incidents"
+
 # Constants relating to error messages
 STATUSPAGE_ERR_INVALID_URL = "Error connecting to server. Invalid URL: '{url}'"
 STATUSPAGE_ERR_CONNECTION_REFUSED = "Error connecting to server. Connection Refused from the server for '{url}' url."
