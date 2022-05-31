@@ -1,2 +1,1 @@
 **Unreleased**
-* Initial release with Python3 support [PAPP-25384]
