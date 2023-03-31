@@ -2,34 +2,23 @@
 # Statuspage
 
 Publisher: Splunk  
-Connector Version: 1\.0\.1  
+Connector Version: 1.0.1  
 Product Vendor: Atlassian  
 Product Name: Statuspage  
-Product Version Supported (regex): "\.\*"  
-Minimum Product Version: 5\.2\.0  
+Product Version Supported (regex): ".\*"  
+Minimum Product Version: 5.5.0  
 
 This app is an Atlassian product that is used to help monitor and communicate status issues for various products
-
-# Splunk> Phantom
-
-Welcome to the open-source repository for Splunk> Phantom's statuspage App.
-
-Please have a look at our [Contributing Guide](https://github.com/Splunk-SOAR-Apps/.github/blob/main/.github/CONTRIBUTING.md) if you are interested in contributing, raising issues, or learning more about open-source Phantom apps.
-
-## Legal and License
-
-This Phantom App is licensed under the Apache 2.0 license. Please see our [Contributing Guide](https://github.com/Splunk-SOAR-Apps/.github/blob/main/.github/CONTRIBUTING.md#legal-notice) for further details.
-
 
 ### Configuration Variables
 The below configuration variables are required for this Connector to operate.  These variables are specified when configuring a Statuspage asset in SOAR.
 
 VARIABLE | REQUIRED | TYPE | DESCRIPTION
 -------- | -------- | ---- | -----------
-**base\_url** |  required  | string | Base URL to Statuspage service
-**api\_key** |  required  | password | API Key
-**page\_id** |  required  | string | Page Identifier
-**timeout** |  required  | numeric | Timeout \(seconds\)
+**base_url** |  required  | string | Base URL to Statuspage service
+**api_key** |  required  | password | API Key
+**page_id** |  required  | string | Page Identifier
+**timeout** |  required  | numeric | Timeout (seconds)
 
 ### Supported Actions  
 [test connectivity](#action-test-connectivity) - Validate the asset configuration for connectivity using the supplied credentials  
@@ -61,74 +50,74 @@ Read only: **True**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**query** |  optional  | Provide text to search in the incident name, status, postmortem body and incident\_updates fields | string | 
-**limit** |  optional  | The maximum number of rows to return per page \(default and max\: 100\) | numeric | 
-**page\_offset** |  optional  | Page offset to fetch | numeric | 
+**query** |  optional  | Provide text to search in the incident name, status, postmortem body and incident_updates fields | string | 
+**limit** |  optional  | The maximum number of rows to return per page (default and max: 100) | numeric | 
+**page_offset** |  optional  | Page offset to fetch | numeric | 
 
 #### Action Output
-DATA PATH | TYPE | CONTAINS
---------- | ---- | --------
-action\_result\.status | string | 
-action\_result\.parameter\.limit | numeric | 
-action\_result\.parameter\.page\_offset | numeric | 
-action\_result\.parameter\.query | string | 
-action\_result\.data\.\*\.components\.\*\.created\_at | string | 
-action\_result\.data\.\*\.components\.\*\.description | string | 
-action\_result\.data\.\*\.components\.\*\.group\_id | string | 
-action\_result\.data\.\*\.components\.\*\.id | string | 
-action\_result\.data\.\*\.components\.\*\.name | string | 
-action\_result\.data\.\*\.components\.\*\.page\_id | string | 
-action\_result\.data\.\*\.components\.\*\.position | numeric | 
-action\_result\.data\.\*\.components\.\*\.showcase | boolean | 
-action\_result\.data\.\*\.components\.\*\.start\_date | string | 
-action\_result\.data\.\*\.components\.\*\.status | string | 
-action\_result\.data\.\*\.components\.\*\.updated\_at | string | 
-action\_result\.data\.\*\.created\_at | string | 
-action\_result\.data\.\*\.id | string |  `incident id` 
-action\_result\.data\.\*\.name | string |  `incident name` 
-action\_result\.data\.\*\.status | string |  `incident status` 
-action\_result\.data\.\*\.impact | string |  `incident impact` 
-action\_result\.data\.\*\.impact\_override | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.affected\_components | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.affected\_components\.\*\.code | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.affected\_components\.\*\.name | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.affected\_components\.\*\.new\_status | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.affected\_components\.\*\.old\_status | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.body | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.created\_at | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.custom\_tweet | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.deliver\_notifications | boolean | 
-action\_result\.data\.\*\.incident\_updates\.\*\.display\_at | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.id | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.incident\_id | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.status | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.tweet\_id | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.twitter\_updated\_at | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.updated\_at | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.wants\_twitter\_update | boolean | 
-action\_result\.data\.\*\.monitoring\_at | string | 
-action\_result\.data\.\*\.page\_id | string | 
-action\_result\.data\.\*\.postmortem\_body | string | 
-action\_result\.data\.\*\.postmortem\_body\_last\_updated\_at | string | 
-action\_result\.data\.\*\.postmortem\_ignored | boolean | 
-action\_result\.data\.\*\.postmortem\_notified\_subscribers | boolean | 
-action\_result\.data\.\*\.postmortem\_notified\_twitter | boolean | 
-action\_result\.data\.\*\.postmortem\_published\_at | string | 
-action\_result\.data\.\*\.resolved\_at | string | 
-action\_result\.data\.\*\.scheduled\_auto\_completed | boolean | 
-action\_result\.data\.\*\.scheduled\_auto\_in\_progress | boolean | 
-action\_result\.data\.\*\.scheduled\_for | string | 
-action\_result\.data\.\*\.scheduled\_remind\_prior | boolean | 
-action\_result\.data\.\*\.scheduled\_reminded\_at | string | 
-action\_result\.data\.\*\.scheduled\_until | string | 
-action\_result\.data\.\*\.shortlink | string | 
-action\_result\.data\.\*\.started\_at | string | 
-action\_result\.data\.\*\.updated\_at | string | 
-action\_result\.summary\.num\_incident | numeric | 
-action\_result\.summary\.num\_incidents | numeric | 
-action\_result\.message | string | 
-summary\.total\_objects | numeric | 
-summary\.total\_objects\_successful | numeric |   
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+action_result.status | string |  |   success  failed 
+action_result.parameter.limit | numeric |  |   10 
+action_result.parameter.page_offset | numeric |  |   1 
+action_result.parameter.query | string |  |   Test incident 
+action_result.data.\*.components.\*.created_at | string |  |   2022-04-08T06:27:16.221Z 
+action_result.data.\*.components.\*.description | string |  |  
+action_result.data.\*.components.\*.group_id | string |  |  
+action_result.data.\*.components.\*.id | string |  |   nmxlwqgr3vbx 
+action_result.data.\*.components.\*.name | string |  |   API (example) 
+action_result.data.\*.components.\*.page_id | string |  |   zvymjwsxldwr 
+action_result.data.\*.components.\*.position | numeric |  |   1 
+action_result.data.\*.components.\*.showcase | boolean |  |   True 
+action_result.data.\*.components.\*.start_date | string |  |   2022-04-08T00:00:00.000Z 
+action_result.data.\*.components.\*.status | string |  |   operational 
+action_result.data.\*.components.\*.updated_at | string |  |   2022-04-08T06:27:16.221Z 
+action_result.data.\*.created_at | string |  |   2022-04-25T12:39:28.604Z 
+action_result.data.\*.id | string |  `incident id`  |   fwf7446qh4rb 
+action_result.data.\*.name | string |  `incident name`  |   phan test incident 
+action_result.data.\*.status | string |  `incident status`  |   identified 
+action_result.data.\*.impact | string |  `incident impact`  |   none 
+action_result.data.\*.impact_override | string |  |   none 
+action_result.data.\*.incident_updates.\*.affected_components | string |  |  
+action_result.data.\*.incident_updates.\*.affected_components.\*.code | string |  |   nmxlwqgr3vbx 
+action_result.data.\*.incident_updates.\*.affected_components.\*.name | string |  |   API (example) 
+action_result.data.\*.incident_updates.\*.affected_components.\*.new_status | string |  |   operational 
+action_result.data.\*.incident_updates.\*.affected_components.\*.old_status | string |  |   operational 
+action_result.data.\*.incident_updates.\*.body | string |  |   new incident identified 
+action_result.data.\*.incident_updates.\*.created_at | string |  |   2022-04-25T12:39:28.635Z 
+action_result.data.\*.incident_updates.\*.custom_tweet | string |  |  
+action_result.data.\*.incident_updates.\*.deliver_notifications | boolean |  |   True 
+action_result.data.\*.incident_updates.\*.display_at | string |  |   2022-04-25T12:39:28.635Z 
+action_result.data.\*.incident_updates.\*.id | string |  |   4smmk9r2fvm6 
+action_result.data.\*.incident_updates.\*.incident_id | string |  |   fwf7446qh4rb 
+action_result.data.\*.incident_updates.\*.status | string |  |   identified 
+action_result.data.\*.incident_updates.\*.tweet_id | string |  |  
+action_result.data.\*.incident_updates.\*.twitter_updated_at | string |  |  
+action_result.data.\*.incident_updates.\*.updated_at | string |  |   2022-04-25T12:39:28.635Z 
+action_result.data.\*.incident_updates.\*.wants_twitter_update | boolean |  |   False 
+action_result.data.\*.monitoring_at | string |  |  
+action_result.data.\*.page_id | string |  |   zvymjwsxldwr 
+action_result.data.\*.postmortem_body | string |  |  
+action_result.data.\*.postmortem_body_last_updated_at | string |  |  
+action_result.data.\*.postmortem_ignored | boolean |  |   False 
+action_result.data.\*.postmortem_notified_subscribers | boolean |  |   False 
+action_result.data.\*.postmortem_notified_twitter | boolean |  |   False 
+action_result.data.\*.postmortem_published_at | string |  |  
+action_result.data.\*.resolved_at | string |  |  
+action_result.data.\*.scheduled_auto_completed | boolean |  |   False 
+action_result.data.\*.scheduled_auto_in_progress | boolean |  |   False 
+action_result.data.\*.scheduled_for | string |  |  
+action_result.data.\*.scheduled_remind_prior | boolean |  |   False 
+action_result.data.\*.scheduled_reminded_at | string |  |  
+action_result.data.\*.scheduled_until | string |  |  
+action_result.data.\*.shortlink | string |  |   https://stspg.io/gl86rvc5tjzn 
+action_result.data.\*.started_at | string |  |   2022-04-25T12:39:28.598Z 
+action_result.data.\*.updated_at | string |  |   2022-04-25T12:39:28.638Z 
+action_result.summary.num_incident | numeric |  |   5 
+action_result.summary.num_incidents | numeric |  |   0 
+action_result.message | string |  |  
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1   
 
 ## action: 'get incident'
 Get an incident's details
@@ -139,70 +128,70 @@ Read only: **True**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**incident\_id** |  required  | Incident Identifier | string |  `incident id` 
+**incident_id** |  required  | Incident Identifier | string |  `incident id` 
 
 #### Action Output
-DATA PATH | TYPE | CONTAINS
---------- | ---- | --------
-action\_result\.status | string | 
-action\_result\.parameter\.incident\_id | string |  `incident id` 
-action\_result\.data\.\*\.components\.\*\.automation\_email | string | 
-action\_result\.data\.\*\.components\.\*\.created\_at | string | 
-action\_result\.data\.\*\.components\.\*\.description | string | 
-action\_result\.data\.\*\.components\.\*\.group | boolean | 
-action\_result\.data\.\*\.components\.\*\.group\_id | string | 
-action\_result\.data\.\*\.components\.\*\.id | string | 
-action\_result\.data\.\*\.components\.\*\.name | string | 
-action\_result\.data\.\*\.components\.\*\.only\_show\_if\_degraded | boolean | 
-action\_result\.data\.\*\.components\.\*\.page\_id | string | 
-action\_result\.data\.\*\.components\.\*\.position | numeric | 
-action\_result\.data\.\*\.components\.\*\.showcase | boolean | 
-action\_result\.data\.\*\.components\.\*\.start\_date | string | 
-action\_result\.data\.\*\.components\.\*\.status | string | 
-action\_result\.data\.\*\.components\.\*\.updated\_at | string | 
-action\_result\.data\.\*\.created\_at | string | 
-action\_result\.data\.\*\.id | string |  `incident id` 
-action\_result\.data\.\*\.name | string |  `incident name` 
-action\_result\.data\.\*\.status | string |  `incident status` 
-action\_result\.data\.\*\.impact | string |  `incident impact` 
-action\_result\.data\.\*\.impact\_override | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.affected\_components\.\*\.code | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.affected\_components\.\*\.name | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.affected\_components\.\*\.new\_status | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.affected\_components\.\*\.old\_status | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.body | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.created\_at | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.custom\_tweet | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.deliver\_notifications | boolean | 
-action\_result\.data\.\*\.incident\_updates\.\*\.display\_at | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.id | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.incident\_id | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.status | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.tweet\_id | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.twitter\_updated\_at | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.updated\_at | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.wants\_twitter\_update | boolean | 
-action\_result\.data\.\*\.monitoring\_at | string | 
-action\_result\.data\.\*\.page\_id | string | 
-action\_result\.data\.\*\.postmortem\_body | string | 
-action\_result\.data\.\*\.postmortem\_body\_last\_updated\_at | string | 
-action\_result\.data\.\*\.postmortem\_ignored | boolean | 
-action\_result\.data\.\*\.postmortem\_notified\_subscribers | boolean | 
-action\_result\.data\.\*\.postmortem\_notified\_twitter | boolean | 
-action\_result\.data\.\*\.postmortem\_published\_at | string | 
-action\_result\.data\.\*\.resolved\_at | string | 
-action\_result\.data\.\*\.scheduled\_auto\_completed | boolean | 
-action\_result\.data\.\*\.scheduled\_auto\_in\_progress | boolean | 
-action\_result\.data\.\*\.scheduled\_for | string | 
-action\_result\.data\.\*\.scheduled\_remind\_prior | boolean | 
-action\_result\.data\.\*\.scheduled\_reminded\_at | string | 
-action\_result\.data\.\*\.scheduled\_until | string | 
-action\_result\.data\.\*\.shortlink | string | 
-action\_result\.data\.\*\.updated\_at | string | 
-action\_result\.summary | string | 
-action\_result\.message | string | 
-summary\.total\_objects | numeric | 
-summary\.total\_objects\_successful | numeric |   
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+action_result.status | string |  |   success  failed 
+action_result.parameter.incident_id | string |  `incident id`  |   hvz1scn66x3z 
+action_result.data.\*.components.\*.automation_email | string |  |   component+01a42729-82fc-46e6-bf20-7c8bebe01c0b@notifications.statuspage.io 
+action_result.data.\*.components.\*.created_at | string |  |   2022-04-08T06:27:16Z 
+action_result.data.\*.components.\*.description | string |  |  
+action_result.data.\*.components.\*.group | boolean |  |   False 
+action_result.data.\*.components.\*.group_id | string |  |  
+action_result.data.\*.components.\*.id | string |  |   nmxlwqgr3vbx 
+action_result.data.\*.components.\*.name | string |  |   API (example) 
+action_result.data.\*.components.\*.only_show_if_degraded | boolean |  |   False 
+action_result.data.\*.components.\*.page_id | string |  |   zvymjwsxldwr 
+action_result.data.\*.components.\*.position | numeric |  |   1 
+action_result.data.\*.components.\*.showcase | boolean |  |   True 
+action_result.data.\*.components.\*.start_date | string |  |   2022-04-08 
+action_result.data.\*.components.\*.status | string |  |   operational 
+action_result.data.\*.components.\*.updated_at | string |  |   2022-04-08T06:27:16Z 
+action_result.data.\*.created_at | string |  |   2022-04-11T13:08:38Z 
+action_result.data.\*.id | string |  `incident id`  |   6m9989pk8g7k 
+action_result.data.\*.name | string |  `incident name`  |   Test 
+action_result.data.\*.status | string |  `incident status`  |   resolved 
+action_result.data.\*.impact | string |  `incident impact`  |   none 
+action_result.data.\*.impact_override | string |  |  
+action_result.data.\*.incident_updates.\*.affected_components.\*.code | string |  |   nmxlwqgr3vbx 
+action_result.data.\*.incident_updates.\*.affected_components.\*.name | string |  |   API (example) 
+action_result.data.\*.incident_updates.\*.affected_components.\*.new_status | string |  |   operational 
+action_result.data.\*.incident_updates.\*.affected_components.\*.old_status | string |  |   operational 
+action_result.data.\*.incident_updates.\*.body | string |  |   the test issue is resolved 
+action_result.data.\*.incident_updates.\*.created_at | string |  |   2022-04-21T06:15:48.611Z 
+action_result.data.\*.incident_updates.\*.custom_tweet | string |  |  
+action_result.data.\*.incident_updates.\*.deliver_notifications | boolean |  |   True 
+action_result.data.\*.incident_updates.\*.display_at | string |  |   2022-04-21T06:15:48.611Z 
+action_result.data.\*.incident_updates.\*.id | string |  |   rpv1c7rz7tkn 
+action_result.data.\*.incident_updates.\*.incident_id | string |  |   6m9989pk8g7k 
+action_result.data.\*.incident_updates.\*.status | string |  |   resolved 
+action_result.data.\*.incident_updates.\*.tweet_id | string |  |  
+action_result.data.\*.incident_updates.\*.twitter_updated_at | string |  |  
+action_result.data.\*.incident_updates.\*.updated_at | string |  |   2022-04-21T06:15:48.611Z 
+action_result.data.\*.incident_updates.\*.wants_twitter_update | boolean |  |   False 
+action_result.data.\*.monitoring_at | string |  |   2022-04-21T06:15:03Z 
+action_result.data.\*.page_id | string |  |   zvymjwsxldwr 
+action_result.data.\*.postmortem_body | string |  |   It was a testing incident 
+action_result.data.\*.postmortem_body_last_updated_at | string |  |   2022-04-21T06:16:36Z 
+action_result.data.\*.postmortem_ignored | boolean |  |   False 
+action_result.data.\*.postmortem_notified_subscribers | boolean |  |   False 
+action_result.data.\*.postmortem_notified_twitter | boolean |  |   False 
+action_result.data.\*.postmortem_published_at | string |  |   2022-04-21T06:16:36.385Z 
+action_result.data.\*.resolved_at | string |  |   2022-04-21T06:15:48Z 
+action_result.data.\*.scheduled_auto_completed | boolean |  |   False 
+action_result.data.\*.scheduled_auto_in_progress | boolean |  |   False 
+action_result.data.\*.scheduled_for | string |  |  
+action_result.data.\*.scheduled_remind_prior | boolean |  |   False 
+action_result.data.\*.scheduled_reminded_at | string |  |  
+action_result.data.\*.scheduled_until | string |  |  
+action_result.data.\*.shortlink | string |  |   https://stspg.io/knjhkxkcfgxk 
+action_result.data.\*.updated_at | string |  |   2022-04-21T06:16:36Z 
+action_result.summary | string |  |  
+action_result.message | string |  |  
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1   
 
 ## action: 'create incident subscriber'
 Create an incident subscriber
@@ -213,25 +202,25 @@ Read only: **False**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**incident\_id** |  required  | Incident Identifier | string |  `incident id` 
+**incident_id** |  required  | Incident Identifier | string |  `incident id` 
 **email** |  required  | Email address for creating email subscriber | string |  `email id` 
 
 #### Action Output
-DATA PATH | TYPE | CONTAINS
---------- | ---- | --------
-action\_result\.parameter\.email | string |  `email id` 
-action\_result\.parameter\.incident\_id | string |  `incident id` 
-action\_result\.data\.\*\.created\_at | string | 
-action\_result\.data\.\*\.id | string |  `subscriber id` 
-action\_result\.data\.\*\.email | string |  `email id` 
-action\_result\.status | string | 
-action\_result\.data\.\*\.mode | string | 
-action\_result\.data\.\*\.purge\_at | string | 
-action\_result\.data\.\*\.quarantined\_at | string | 
-action\_result\.summary | string | 
-action\_result\.message | string | 
-summary\.total\_objects | numeric | 
-summary\.total\_objects\_successful | numeric |   
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+action_result.parameter.email | string |  `email id`  |   phantom_test@gmail.com 
+action_result.parameter.incident_id | string |  `incident id`  |   86qs8rfn5pnd 
+action_result.data.\*.created_at | string |  |   2022-04-26T05:32:08Z 
+action_result.data.\*.id | string |  `subscriber id`  |   86qs8rfn5pnd 
+action_result.data.\*.email | string |  `email id`  |   test@gmail.com 
+action_result.status | string |  |   success  failed 
+action_result.data.\*.mode | string |  |   email 
+action_result.data.\*.purge_at | string |  |  
+action_result.data.\*.quarantined_at | string |  |  
+action_result.summary | string |  |  
+action_result.message | string |  |  
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1   
 
 ## action: 'create incident'
 Create an incident
@@ -243,62 +232,62 @@ Read only: **False**
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **name** |  required  | Incident Name | string |  `incident name` 
-**status** |  optional  | Incident status\. Default is investigating | string |  `incident status` 
-**impact\_override** |  optional  | Select value to override calculated impact value | string |  `incident impact value` 
+**status** |  optional  | Incident status. Default is investigating | string |  `incident status` 
+**impact_override** |  optional  | Select value to override calculated impact value | string |  `incident impact value` 
 **body** |  optional  | Write a initial message, created as the first incident update | string |  `incident body` 
-**component\_ids** |  optional  | Specify component's id affected by this incident\. Separate multiple ids with commas | string | 
+**component_ids** |  optional  | Specify component's id affected by this incident. Separate multiple ids with commas | string | 
 **components** |  optional  | A JSON object of 'component affected' and 'status' | string | 
 
 #### Action Output
-DATA PATH | TYPE | CONTAINS
---------- | ---- | --------
-action\_result\.data\.\*\.id | string |  `incident id` 
-action\_result\.parameter\.name | string |  `incident name` 
-action\_result\.status | string | 
-action\_result\.parameter\.body | string |  `incident body` 
-action\_result\.parameter\.component\_ids | string | 
-action\_result\.parameter\.components | string | 
-action\_result\.parameter\.impact\_override | string |  `incident impact value` 
-action\_result\.parameter\.status | string |  `incident status` 
-action\_result\.data\.\*\.created\_at | string | 
-action\_result\.data\.\*\.impact | string | 
-action\_result\.data\.\*\.impact\_override | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.affected\_components | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.body | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.created\_at | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.custom\_tweet | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.deliver\_notifications | boolean | 
-action\_result\.data\.\*\.incident\_updates\.\*\.display\_at | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.id | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.incident\_id | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.status | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.tweet\_id | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.twitter\_updated\_at | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.updated\_at | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.wants\_twitter\_update | boolean | 
-action\_result\.data\.\*\.monitoring\_at | string | 
-action\_result\.data\.\*\.name | string | 
-action\_result\.data\.\*\.page\_id | string | 
-action\_result\.data\.\*\.postmortem\_body | string | 
-action\_result\.data\.\*\.postmortem\_body\_last\_updated\_at | string | 
-action\_result\.data\.\*\.postmortem\_ignored | boolean | 
-action\_result\.data\.\*\.postmortem\_notified\_subscribers | boolean | 
-action\_result\.data\.\*\.postmortem\_notified\_twitter | boolean | 
-action\_result\.data\.\*\.postmortem\_published\_at | string | 
-action\_result\.data\.\*\.resolved\_at | string | 
-action\_result\.data\.\*\.scheduled\_auto\_completed | boolean | 
-action\_result\.data\.\*\.scheduled\_auto\_in\_progress | boolean | 
-action\_result\.data\.\*\.scheduled\_for | string | 
-action\_result\.data\.\*\.scheduled\_remind\_prior | boolean | 
-action\_result\.data\.\*\.scheduled\_reminded\_at | string | 
-action\_result\.data\.\*\.scheduled\_until | string | 
-action\_result\.data\.\*\.shortlink | string | 
-action\_result\.data\.\*\.status | string | 
-action\_result\.data\.\*\.updated\_at | string | 
-action\_result\.summary | string | 
-action\_result\.message | string | 
-summary\.total\_objects | numeric | 
-summary\.total\_objects\_successful | numeric |   
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+action_result.data.\*.id | string |  `incident id`  |   chxvv9qr6d9p 
+action_result.parameter.name | string |  `incident name`  |   Test Incident 
+action_result.status | string |  |   success  failed 
+action_result.parameter.body | string |  `incident body`  |   We are currently investigating this issue 
+action_result.parameter.component_ids | string |  |   fz7cfjdzg9hs 
+action_result.parameter.components | string |  |   {"fz7cfjdzg9hs": "operational", "nmxlwqgr3vbx": "partial_outage"} 
+action_result.parameter.impact_override | string |  `incident impact value`  |   minor 
+action_result.parameter.status | string |  `incident status`  |   investigating 
+action_result.data.\*.created_at | string |  |   2022-04-25T18:57:25Z 
+action_result.data.\*.impact | string |  |   none 
+action_result.data.\*.impact_override | string |  |  
+action_result.data.\*.incident_updates.\*.affected_components | string |  |  
+action_result.data.\*.incident_updates.\*.body | string |  |   We are currently investigating this issue. 
+action_result.data.\*.incident_updates.\*.created_at | string |  |   2022-04-25T18:57:25.382Z 
+action_result.data.\*.incident_updates.\*.custom_tweet | string |  |  
+action_result.data.\*.incident_updates.\*.deliver_notifications | boolean |  |   True 
+action_result.data.\*.incident_updates.\*.display_at | string |  |   2022-04-25T18:57:25.382Z 
+action_result.data.\*.incident_updates.\*.id | string |  |   wht0qsdbgmlz 
+action_result.data.\*.incident_updates.\*.incident_id | string |  |   chxvv9qr6d9p 
+action_result.data.\*.incident_updates.\*.status | string |  |   investigating 
+action_result.data.\*.incident_updates.\*.tweet_id | string |  |  
+action_result.data.\*.incident_updates.\*.twitter_updated_at | string |  |  
+action_result.data.\*.incident_updates.\*.updated_at | string |  |   2022-04-25T18:57:25.382Z 
+action_result.data.\*.incident_updates.\*.wants_twitter_update | boolean |  |   False 
+action_result.data.\*.monitoring_at | string |  |  
+action_result.data.\*.name | string |  |   Test Incident 3 
+action_result.data.\*.page_id | string |  |   zvymjwsxldwr 
+action_result.data.\*.postmortem_body | string |  |  
+action_result.data.\*.postmortem_body_last_updated_at | string |  |  
+action_result.data.\*.postmortem_ignored | boolean |  |   False 
+action_result.data.\*.postmortem_notified_subscribers | boolean |  |   False 
+action_result.data.\*.postmortem_notified_twitter | boolean |  |   False 
+action_result.data.\*.postmortem_published_at | string |  |  
+action_result.data.\*.resolved_at | string |  |  
+action_result.data.\*.scheduled_auto_completed | boolean |  |   False 
+action_result.data.\*.scheduled_auto_in_progress | boolean |  |   False 
+action_result.data.\*.scheduled_for | string |  |  
+action_result.data.\*.scheduled_remind_prior | boolean |  |   False 
+action_result.data.\*.scheduled_reminded_at | string |  |  
+action_result.data.\*.scheduled_until | string |  |  
+action_result.data.\*.shortlink | string |  |   https://stspg.io/rbbvwvdqdmtx 
+action_result.data.\*.status | string |  |   investigating 
+action_result.data.\*.updated_at | string |  |   2022-04-25T18:57:25Z 
+action_result.summary | string |  |  
+action_result.message | string |  |  
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1   
 
 ## action: 'update incident'
 Update an incident
@@ -309,65 +298,65 @@ Read only: **False**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**incident\_id** |  required  | Incident Identifier | string |  `incident id` 
+**incident_id** |  required  | Incident Identifier | string |  `incident id` 
 **name** |  optional  | Update Incident Name | string |  `incident name` 
 **status** |  optional  | Update Incident status | string |  `incident status` 
-**impact\_override** |  optional  | Select value to override impact value | string |  `incident impact value` 
+**impact_override** |  optional  | Select value to override impact value | string |  `incident impact value` 
 **body** |  optional  | Update initial message, created as the first incident update | string |  `incident body` 
-**component\_ids** |  optional  | Specify component's id affected by this incident\. Separate multiple ids with commas | string | 
+**component_ids** |  optional  | Specify component's id affected by this incident. Separate multiple ids with commas | string | 
 **components** |  optional  | A JSON object of 'component affected' and 'status' | string | 
 
 #### Action Output
-DATA PATH | TYPE | CONTAINS
---------- | ---- | --------
-action\_result\.data\.\*\.id | string |  `incident id` 
-action\_result\.data\.\*\.name | string |  `incident name` 
-action\_result\.status | string | 
-action\_result\.parameter\.body | string |  `incident body` 
-action\_result\.parameter\.component\_ids | string | 
-action\_result\.parameter\.components | string | 
-action\_result\.parameter\.impact\_override | string |  `incident impact value` 
-action\_result\.parameter\.incident\_id | string |  `incident id` 
-action\_result\.parameter\.name | string |  `incident name` 
-action\_result\.parameter\.status | string |  `incident status` 
-action\_result\.data\.\*\.created\_at | string | 
-action\_result\.data\.\*\.impact | string | 
-action\_result\.data\.\*\.impact\_override | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.affected\_components | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.body | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.created\_at | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.custom\_tweet | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.deliver\_notifications | boolean | 
-action\_result\.data\.\*\.incident\_updates\.\*\.display\_at | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.id | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.incident\_id | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.status | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.tweet\_id | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.twitter\_updated\_at | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.updated\_at | string | 
-action\_result\.data\.\*\.incident\_updates\.\*\.wants\_twitter\_update | boolean | 
-action\_result\.data\.\*\.monitoring\_at | string | 
-action\_result\.data\.\*\.page\_id | string | 
-action\_result\.data\.\*\.postmortem\_body | string | 
-action\_result\.data\.\*\.postmortem\_body\_last\_updated\_at | string | 
-action\_result\.data\.\*\.postmortem\_ignored | boolean | 
-action\_result\.data\.\*\.postmortem\_notified\_subscribers | boolean | 
-action\_result\.data\.\*\.postmortem\_notified\_twitter | boolean | 
-action\_result\.data\.\*\.postmortem\_published\_at | string | 
-action\_result\.data\.\*\.resolved\_at | string | 
-action\_result\.data\.\*\.scheduled\_auto\_completed | boolean | 
-action\_result\.data\.\*\.scheduled\_auto\_in\_progress | boolean | 
-action\_result\.data\.\*\.scheduled\_for | string | 
-action\_result\.data\.\*\.scheduled\_remind\_prior | boolean | 
-action\_result\.data\.\*\.scheduled\_reminded\_at | string | 
-action\_result\.data\.\*\.scheduled\_until | string | 
-action\_result\.data\.\*\.shortlink | string | 
-action\_result\.data\.\*\.status | string | 
-action\_result\.data\.\*\.updated\_at | string | 
-action\_result\.summary | string | 
-action\_result\.message | string | 
-summary\.total\_objects | numeric | 
-summary\.total\_objects\_successful | numeric |   
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+action_result.data.\*.id | string |  `incident id`  |   chxvv9qr6d9p 
+action_result.data.\*.name | string |  `incident name`  |   Test Incident 3 
+action_result.status | string |  |   success  failed 
+action_result.parameter.body | string |  `incident body`  |   We are currently investigating this issue 
+action_result.parameter.component_ids | string |  |   fz7cfjdzg9hs 
+action_result.parameter.components | string |  |   {"fz7cfjdzg9hs": "operational", "nmxlwqgr3vbx": "partial_outage"} 
+action_result.parameter.impact_override | string |  `incident impact value`  |   minor 
+action_result.parameter.incident_id | string |  `incident id`  |   86qs8rfn5pnd 
+action_result.parameter.name | string |  `incident name`  |   Test Incident 
+action_result.parameter.status | string |  `incident status`  |   investigating 
+action_result.data.\*.created_at | string |  |   2022-04-25T18:57:25Z 
+action_result.data.\*.impact | string |  |   minor 
+action_result.data.\*.impact_override | string |  |   minor 
+action_result.data.\*.incident_updates.\*.affected_components | string |  |  
+action_result.data.\*.incident_updates.\*.body | string |  |   We are currently investigating this issue. 
+action_result.data.\*.incident_updates.\*.created_at | string |  |   2022-04-25T18:57:25.382Z 
+action_result.data.\*.incident_updates.\*.custom_tweet | string |  |  
+action_result.data.\*.incident_updates.\*.deliver_notifications | boolean |  |   True 
+action_result.data.\*.incident_updates.\*.display_at | string |  |   2022-04-25T18:57:25.382Z 
+action_result.data.\*.incident_updates.\*.id | string |  |   wht0qsdbgmlz 
+action_result.data.\*.incident_updates.\*.incident_id | string |  |   chxvv9qr6d9p 
+action_result.data.\*.incident_updates.\*.status | string |  |   investigating 
+action_result.data.\*.incident_updates.\*.tweet_id | string |  |  
+action_result.data.\*.incident_updates.\*.twitter_updated_at | string |  |  
+action_result.data.\*.incident_updates.\*.updated_at | string |  |   2022-04-25T18:57:25.382Z 
+action_result.data.\*.incident_updates.\*.wants_twitter_update | boolean |  |   False 
+action_result.data.\*.monitoring_at | string |  |  
+action_result.data.\*.page_id | string |  |   zvymjwsxldwr 
+action_result.data.\*.postmortem_body | string |  |  
+action_result.data.\*.postmortem_body_last_updated_at | string |  |  
+action_result.data.\*.postmortem_ignored | boolean |  |   False 
+action_result.data.\*.postmortem_notified_subscribers | boolean |  |   False 
+action_result.data.\*.postmortem_notified_twitter | boolean |  |   False 
+action_result.data.\*.postmortem_published_at | string |  |  
+action_result.data.\*.resolved_at | string |  |  
+action_result.data.\*.scheduled_auto_completed | boolean |  |   False 
+action_result.data.\*.scheduled_auto_in_progress | boolean |  |   False 
+action_result.data.\*.scheduled_for | string |  |  
+action_result.data.\*.scheduled_remind_prior | boolean |  |   False 
+action_result.data.\*.scheduled_reminded_at | string |  |  
+action_result.data.\*.scheduled_until | string |  |  
+action_result.data.\*.shortlink | string |  |   https://stspg.io/rbbvwvdqdmtx 
+action_result.data.\*.status | string |  |   investigating 
+action_result.data.\*.updated_at | string |  |   2022-04-25T19:12:11Z 
+action_result.summary | string |  |  
+action_result.message | string |  |  
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1   
 
 ## action: 'list incident subscribers'
 Get a list of incident subscribers
@@ -378,20 +367,24 @@ Read only: **True**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**incident\_id** |  required  | Incident Identifier | string |  `incident id` 
+**incident_id** |  required  | Incident Identifier | string |  `incident id` 
+**page** |  optional  | Page offset to fetch | numeric | 
+**per_page** |  optional  | The maximum number of rows to return per page (default and max: 100) | numeric | 
 
 #### Action Output
-DATA PATH | TYPE | CONTAINS
---------- | ---- | --------
-action\_result\.status | string | 
-action\_result\.parameter\.incident\_id | string |  `incident id` 
-action\_result\.data\.\*\.created\_at | string | 
-action\_result\.data\.\*\.id | string |  `subscriber id` 
-action\_result\.data\.\*\.email | string |  `email id` 
-action\_result\.data\.\*\.mode | string | 
-action\_result\.data\.\*\.purge\_at | string | 
-action\_result\.data\.\*\.quarantined\_at | string | 
-action\_result\.summary\.num\_of\_subscribers | numeric | 
-action\_result\.message | string | 
-summary\.total\_objects | numeric | 
-summary\.total\_objects\_successful | numeric | 
+DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
+--------- | ---- | -------- | --------------
+action_result.status | string |  |   success  failed 
+action_result.parameter.incident_id | string |  `incident id`  |   86qs8rfn5pnd 
+action_result.parameter.page | numeric |  |   1 
+action_result.parameter.per_page | numeric |  |   100 
+action_result.data.\*.created_at | string |  |   2022-04-26T05:32:08Z 
+action_result.data.\*.id | string |  `subscriber id`  |   86qs8rfn5pnd 
+action_result.data.\*.email | string |  `email id`  |   test@gmail.com 
+action_result.data.\*.mode | string |  |   email 
+action_result.data.\*.purge_at | string |  |  
+action_result.data.\*.quarantined_at | string |  |  
+action_result.summary.num_of_subscribers | numeric |  |   2 
+action_result.message | string |  |  
+summary.total_objects | numeric |  |   1 
+summary.total_objects_successful | numeric |  |   1 
