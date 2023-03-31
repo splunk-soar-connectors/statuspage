@@ -1,6 +1,6 @@
 # File: statuspage_connector.py
 #
-# Copyright (c) 2023 Splunk Inc.
+# Copyright (c) 2022-2023 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -232,19 +232,19 @@ class StatuspageConnector(BaseConnector):
             if parameter <= 0:
                 if allow_zero:
                     if parameter < 0:
-                        action_result.set_status(phantom.APP_ERROR, STATUSPAGE_LIMIT_VALIDATION_ALLOW_ZERO_MSG.format(parameter=key))
+                        action_result.set_status(phantom.APP_ERROR, STATUSPAGE_LIMIT_VALIDATION_ALLOW_ZERO_MESSAGE.format(parameter=key))
                         return None
                 else:
-                    action_result.set_status(phantom.APP_ERROR, STATUSPAGE_LIMIT_VALIDATION_MSG.format(parameter=key))
+                    action_result.set_status(phantom.APP_ERROR, STATUSPAGE_LIMIT_VALIDATION_MESSAGE.format(parameter=key))
                     return None
         except Exception as e:
             self.debug_print(
                 "Integer validation failed. Error occurred while validating integer value. Error: {}".format(str(e))
             )
             if allow_zero:
-                error_text = STATUSPAGE_LIMIT_VALIDATION_ALLOW_ZERO_MSG.format(parameter=key)
+                error_text = STATUSPAGE_LIMIT_VALIDATION_ALLOW_ZERO_MESSAGE.format(parameter=key)
             else:
-                error_text = STATUSPAGE_LIMIT_VALIDATION_MSG.format(parameter=key)
+                error_text = STATUSPAGE_LIMIT_VALIDATION_MESSAGE.format(parameter=key)
             action_result.set_status(phantom.APP_ERROR, error_text)
             return None
 
