@@ -4,7 +4,7 @@
     "description": "This app is an Atlassian product that is used to help monitor and communicate status issues for various products",
     "type": "ticketing",
     "main_module": "statuspage_connector.py",
-    "app_version": "1.0.1",
+    "app_version": "1.1.0",
     "utctime_updated": "2022-04-21T07:54:56.000000Z",
     "package_name": "phantom_statuspage",
     "product_vendor": "Atlassian",
