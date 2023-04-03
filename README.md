@@ -2,7 +2,7 @@
 # Statuspage
 
 Publisher: Splunk  
-Connector Version: 1.0.1  
+Connector Version: 1.1.0  
 Product Vendor: Atlassian  
 Product Name: Statuspage  
 Product Version Supported (regex): ".\*"  
