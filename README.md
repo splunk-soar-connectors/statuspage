@@ -113,8 +113,7 @@ action_result.data.\*.scheduled_until | string |  |
 action_result.data.\*.shortlink | string |  |   https://stspg.io/gl86rvc5tjzn 
 action_result.data.\*.started_at | string |  |   2022-04-25T12:39:28.598Z 
 action_result.data.\*.updated_at | string |  |   2022-04-25T12:39:28.638Z 
-action_result.summary.num_incident | numeric |  |   5 
-action_result.summary.num_incidents | numeric |  |   0 
+action_result.summary.number_of_incidents | numeric |  |   0 
 action_result.message | string |  |  
 summary.total_objects | numeric |  |   1 
 summary.total_objects_successful | numeric |  |   1   
@@ -233,7 +232,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **name** |  required  | Incident Name | string |  `incident name` 
 **status** |  optional  | Incident status. Default is investigating | string |  `incident status` 
-**impact_override** |  optional  | Select value to override calculated impact value | string |  `incident impact value` 
+**impact_override** |  optional  | Select value to override calculated impact value | string |  `incident impact` 
 **body** |  optional  | Write a initial message, created as the first incident update | string |  `incident body` 
 **component_ids** |  optional  | Specify component's id affected by this incident. Separate multiple ids with commas | string | 
 **components** |  optional  | A JSON object of 'component affected' and 'status' | string | 
@@ -247,7 +246,7 @@ action_result.status | string |  |   success  failed
 action_result.parameter.body | string |  `incident body`  |   We are currently investigating this issue 
 action_result.parameter.component_ids | string |  |   fz7cfjdzg9hs 
 action_result.parameter.components | string |  |   {"fz7cfjdzg9hs": "operational", "nmxlwqgr3vbx": "partial_outage"} 
-action_result.parameter.impact_override | string |  `incident impact value`  |   minor 
+action_result.parameter.impact_override | string |  `incident impact`  |   minor 
 action_result.parameter.status | string |  `incident status`  |   investigating 
 action_result.data.\*.created_at | string |  |   2022-04-25T18:57:25Z 
 action_result.data.\*.impact | string |  |   none 
@@ -301,7 +300,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **incident_id** |  required  | Incident Identifier | string |  `incident id` 
 **name** |  optional  | Update Incident Name | string |  `incident name` 
 **status** |  optional  | Update Incident status | string |  `incident status` 
-**impact_override** |  optional  | Select value to override impact value | string |  `incident impact value` 
+**impact_override** |  optional  | Select value to override impact value | string |  `incident impact` 
 **body** |  optional  | Update initial message, created as the first incident update | string |  `incident body` 
 **component_ids** |  optional  | Specify component's id affected by this incident. Separate multiple ids with commas | string | 
 **components** |  optional  | A JSON object of 'component affected' and 'status' | string | 
@@ -315,7 +314,7 @@ action_result.status | string |  |   success  failed
 action_result.parameter.body | string |  `incident body`  |   We are currently investigating this issue 
 action_result.parameter.component_ids | string |  |   fz7cfjdzg9hs 
 action_result.parameter.components | string |  |   {"fz7cfjdzg9hs": "operational", "nmxlwqgr3vbx": "partial_outage"} 
-action_result.parameter.impact_override | string |  `incident impact value`  |   minor 
+action_result.parameter.impact_override | string |  `incident impact`  |   minor 
 action_result.parameter.incident_id | string |  `incident id`  |   86qs8rfn5pnd 
 action_result.parameter.name | string |  `incident name`  |   Test Incident 
 action_result.parameter.status | string |  `incident status`  |   investigating 
@@ -384,7 +383,7 @@ action_result.data.\*.email | string |  `email id`  |   test@gmail.com
 action_result.data.\*.mode | string |  |   email 
 action_result.data.\*.purge_at | string |  |  
 action_result.data.\*.quarantined_at | string |  |  
-action_result.summary.num_of_subscribers | numeric |  |   2 
+action_result.summary.number_of_incident_subscribers | numeric |  |   2 
 action_result.message | string |  |  
 summary.total_objects | numeric |  |   1 
 summary.total_objects_successful | numeric |  |   1 
