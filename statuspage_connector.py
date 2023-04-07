@@ -325,7 +325,7 @@ class StatuspageConnector(BaseConnector):
             action_result.add_data(incident)
 
         summary = action_result.set_summary({})
-        summary['num_incidents'] = len(response)
+        summary['number_of_incidents'] = len(response)
 
         return action_result.set_status(phantom.APP_SUCCESS)
 
@@ -477,7 +477,7 @@ class StatuspageConnector(BaseConnector):
             action_result.add_data(incident)
 
         summary = action_result.set_summary({})
-        summary['num_incident_subscribers'] = len(response)
+        summary['number_of_incident_subscribers'] = len(response)
 
         return action_result.set_status(phantom.APP_SUCCESS)
 

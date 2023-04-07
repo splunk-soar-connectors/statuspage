@@ -456,14 +456,7 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.summary.num_incident",
-                    "data_type": "numeric",
-                    "example_values": [
-                        5
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.num_incidents",
+                    "data_path": "action_result.summary.number_of_incidents",
                     "data_type": "numeric",
                     "example_values": [
                         0
@@ -1102,7 +1095,7 @@
                     "data_type": "string",
                     "order": 2,
                     "contains": [
-                        "incident impact value"
+                        "incident impact"
                     ],
                     "value_list": [
                         "none",
@@ -1199,7 +1192,7 @@
                         "minor"
                     ],
                     "contains": [
-                        "incident impact value"
+                        "incident impact"
                     ]
                 },
                 {
@@ -1495,7 +1488,7 @@
                     "data_type": "string",
                     "order": 3,
                     "contains": [
-                        "incident impact value"
+                        "incident impact"
                     ],
                     "value_list": [
                         "none",
@@ -1592,7 +1585,7 @@
                         "minor"
                     ],
                     "contains": [
-                        "incident impact value"
+                        "incident impact"
                     ]
                 },
                 {
@@ -1967,7 +1960,7 @@
                     "data_type": "string"
                 },
                 {
-                    "data_path": "action_result.summary.num_of_subscribers",
+                    "data_path": "action_result.summary.number_of_incident_subscribers",
                     "data_type": "numeric",
                     "example_values": [
                         2
