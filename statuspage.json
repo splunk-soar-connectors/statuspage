@@ -14,7 +14,7 @@
     "python_version": "3",
     "fips_compliant": true,
     "latest_tested_versions": [
-        "Statuspage 2023-04-10, API Version: V1"
+        "Statuspage 2023-04-12, API Version: V1"
     ],
     "publisher": "Splunk",
     "logo": "logo_statuspage.svg",
@@ -1157,9 +1157,7 @@
                     "example_values": [
                         "success",
                         "failed"
-                    ],
-                    "column_order": 2,
-                    "column_name": "Status"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.body",
@@ -1217,7 +1215,12 @@
                     "data_type": "string",
                     "example_values": [
                         "none"
-                    ]
+                    ],
+                    "contains": [
+                        "incident impact"
+                    ],
+                    "column_order": 3,
+                    "column_name": "Incident Impact"
                 },
                 {
                     "data_path": "action_result.data.*.impact_override",
@@ -1402,7 +1405,12 @@
                     "data_type": "string",
                     "example_values": [
                         "investigating"
-                    ]
+                    ],
+                    "contains": [
+                        "incident status"
+                    ],
+                    "column_order": 2,
+                    "column_name": "Incident Status"
                 },
                 {
                     "data_path": "action_result.data.*.updated_at",
@@ -1550,9 +1558,7 @@
                     "example_values": [
                         "success",
                         "failed"
-                    ],
-                    "column_order": 2,
-                    "column_name": "Status"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.body",
@@ -1630,7 +1636,12 @@
                     "data_type": "string",
                     "example_values": [
                         "minor"
-                    ]
+                    ],
+                    "contains": [
+                        "incident impact"
+                    ],
+                    "column_order": 3,
+                    "column_name": "Incident Impact"
                 },
                 {
                     "data_path": "action_result.data.*.impact_override",
@@ -1811,7 +1822,12 @@
                     "data_type": "string",
                     "example_values": [
                         "investigating"
-                    ]
+                    ],
+                    "contains": [
+                        "incident status"
+                    ],
+                    "column_order": 2,
+                    "column_name": "Incident Status"
                 },
                 {
                     "data_path": "action_result.data.*.updated_at",
