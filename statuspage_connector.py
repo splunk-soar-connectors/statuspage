@@ -300,12 +300,12 @@ class StatuspageConnector(BaseConnector):
 
         limit = self._validate_integers(action_result, param.get('limit', 100), 'limit')
         if limit is None:
-            return action_result.get_status(), None
+            return action_result.get_status()
 
         if page or page == 0:
             page = self._validate_integers(action_result, page, 'page offset', allow_zero=True)
             if page is None:
-                return action_result.get_status(), None
+                return action_result.get_status()
 
         if query:
             parameters['q'] = query
@@ -455,11 +455,11 @@ class StatuspageConnector(BaseConnector):
         if page or page == 0:
             page = self._validate_integers(action_result, page, 'page', allow_zero=True)
             if page is None:
-                return action_result.get_status(), None
+                return action_result.get_status()
 
         per_page = self._validate_integers(action_result, per_page, 'per_page')
         if per_page is None:
-            return action_result.get_status(), None
+            return action_result.get_status()
 
         if page:
             parameter['page'] = page
