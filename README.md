@@ -249,7 +249,7 @@ action_result.parameter.components | string |  |   {"fz7cfjdzg9hs": "operational
 action_result.parameter.impact_override | string |  `incident impact`  |   minor 
 action_result.parameter.status | string |  `incident status`  |   investigating 
 action_result.data.\*.created_at | string |  |   2022-04-25T18:57:25Z 
-action_result.data.\*.impact | string |  |   none 
+action_result.data.\*.impact | string |  `incident impact`  |   none 
 action_result.data.\*.impact_override | string |  |  
 action_result.data.\*.incident_updates.\*.affected_components | string |  |  
 action_result.data.\*.incident_updates.\*.body | string |  |   We are currently investigating this issue. 
@@ -281,7 +281,7 @@ action_result.data.\*.scheduled_remind_prior | boolean |  |   False
 action_result.data.\*.scheduled_reminded_at | string |  |  
 action_result.data.\*.scheduled_until | string |  |  
 action_result.data.\*.shortlink | string |  |   https://stspg.io/rbbvwvdqdmtx 
-action_result.data.\*.status | string |  |   investigating 
+action_result.data.\*.status | string |  `incident status`  |   investigating 
 action_result.data.\*.updated_at | string |  |   2022-04-25T18:57:25Z 
 action_result.summary | string |  |  
 action_result.message | string |  |  
@@ -319,7 +319,7 @@ action_result.parameter.incident_id | string |  `incident id`  |   86qs8rfn5pnd
 action_result.parameter.name | string |  `incident name`  |   Test Incident 
 action_result.parameter.status | string |  `incident status`  |   investigating 
 action_result.data.\*.created_at | string |  |   2022-04-25T18:57:25Z 
-action_result.data.\*.impact | string |  |   minor 
+action_result.data.\*.impact | string |  `incident impact`  |   minor 
 action_result.data.\*.impact_override | string |  |   minor 
 action_result.data.\*.incident_updates.\*.affected_components | string |  |  
 action_result.data.\*.incident_updates.\*.body | string |  |   We are currently investigating this issue. 
@@ -350,7 +350,7 @@ action_result.data.\*.scheduled_remind_prior | boolean |  |   False
 action_result.data.\*.scheduled_reminded_at | string |  |  
 action_result.data.\*.scheduled_until | string |  |  
 action_result.data.\*.shortlink | string |  |   https://stspg.io/rbbvwvdqdmtx 
-action_result.data.\*.status | string |  |   investigating 
+action_result.data.\*.status | string |  `incident status`  |   investigating 
 action_result.data.\*.updated_at | string |  |   2022-04-25T19:12:11Z 
 action_result.summary | string |  |  
 action_result.message | string |  |  
