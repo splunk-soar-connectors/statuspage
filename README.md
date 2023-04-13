@@ -113,7 +113,7 @@ action_result.data.\*.scheduled_until | string |  |
 action_result.data.\*.shortlink | string |  |   https://stspg.io/gl86rvc5tjzn 
 action_result.data.\*.started_at | string |  |   2022-04-25T12:39:28.598Z 
 action_result.data.\*.updated_at | string |  |   2022-04-25T12:39:28.638Z 
-action_result.summary.number_of_incidents | numeric |  |   0 
+action_result.summary.num_incidents | numeric |  |   0 
 action_result.message | string |  |  
 summary.total_objects | numeric |  |   1 
 summary.total_objects_successful | numeric |  |   1   
@@ -383,7 +383,7 @@ action_result.data.\*.email | string |  `email id`  |   test@gmail.com
 action_result.data.\*.mode | string |  |   email 
 action_result.data.\*.purge_at | string |  |  
 action_result.data.\*.quarantined_at | string |  |  
-action_result.summary.number_of_incident_subscribers | numeric |  |   2 
+action_result.summary.num_of_subscribers | numeric |  |   2 
 action_result.message | string |  |  
 summary.total_objects | numeric |  |   1 
 summary.total_objects_successful | numeric |  |   1 
