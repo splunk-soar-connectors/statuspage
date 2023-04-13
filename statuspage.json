@@ -456,7 +456,7 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.summary.number_of_incidents",
+                    "data_path": "action_result.summary.num_incidents",
                     "data_type": "numeric",
                     "example_values": [
                         0
@@ -1976,7 +1976,7 @@
                     "data_type": "string"
                 },
                 {
-                    "data_path": "action_result.summary.number_of_incident_subscribers",
+                    "data_path": "action_result.summary.num_of_subscribers",
                     "data_type": "numeric",
                     "example_values": [
                         2
