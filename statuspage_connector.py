@@ -302,17 +302,15 @@ class StatuspageConnector(BaseConnector):
         if limit is None:
             return action_result.get_status()
 
-        if page or page == 0:
+        if page:
             page = self._validate_integers(action_result, page, 'page offset', allow_zero=True)
             if page is None:
                 return action_result.get_status()
+            parameters['page'] = page
 
         if query:
             parameters['q'] = query
-        if limit:
-            parameters['limit'] = limit
-        if page:
-            parameters['page'] = page
+        parameters['limit'] = limit
 
         endpoint = STATUSPAGE_INCIDENTS_ENDPOINT.format(self._page_id)
 
@@ -325,7 +323,7 @@ class StatuspageConnector(BaseConnector):
             action_result.add_data(incident)
 
         summary = action_result.set_summary({})
-        summary['number_of_incidents'] = len(response)
+        summary['num_incidents'] = len(response) 
 
         return action_result.set_status(phantom.APP_SUCCESS)
 
@@ -452,19 +450,17 @@ class StatuspageConnector(BaseConnector):
         page = param.get('page')
         per_page = param.get('per_page', 100)
 
-        if page or page == 0:
+        if page:
             page = self._validate_integers(action_result, page, 'page', allow_zero=True)
             if page is None:
                 return action_result.get_status()
+            parameter['page'] = page
 
         per_page = self._validate_integers(action_result, per_page, 'per_page')
         if per_page is None:
             return action_result.get_status()
 
-        if page:
-            parameter['page'] = page
-        if per_page:
-            parameter['per_page'] = per_page
+        parameter['per_page'] = per_page
 
         endpoint = STATUSPAGE_INCIDENT_SUBSCRIBERS_ENDPOINT.format(self._page_id, incident_id)
 
@@ -477,7 +473,7 @@ class StatuspageConnector(BaseConnector):
             action_result.add_data(incident)
 
         summary = action_result.set_summary({})
-        summary['number_of_incident_subscribers'] = len(response)
+        summary['num_of_subscribers'] = len(response)
 
         return action_result.set_status(phantom.APP_SUCCESS)
 
