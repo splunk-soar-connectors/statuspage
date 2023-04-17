@@ -1,2 +1,1 @@
 **Unreleased**
-* Added support for 'page' and 'per page' parameters in the 'list incident subscribers' action
