@@ -1,6 +1,6 @@
 # File: statuspage_consts.py
 #
-# Copyright (c) 2022 Splunk Inc.
+# Copyright (c) 2022-2023 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,19 +14,18 @@
 # and limitations under the License.
 
 # Constants relating to 'get_error_message_from_exception'
-ERR_MSG_UNAVAILABLE = "Error message unavailable. Please check the asset configuration and|or action parameters."
+ERROR_MESSAGE_UNAVAILABLE = "Error message unavailable. Please check the asset configuration and|or action parameters."
 
 # Constants relating to endpoint
 STATUSPAGE_FOR_INCIDENT_ENDPOINT = "pages/{0}/incidents/{1}"
 STATUSPAGE_INCIDENTS_ENDPOINT = "pages/{}/incidents"
+STATUSPAGE_INCIDENT_SUBSCRIBERS_ENDPOINT = "pages/{0}/incidents/{1}/subscribers"
 
 # Constants relating to error messages
-STATUSPAGE_ERR_INVALID_URL = "Error connecting to server. Invalid URL: '{url}'"
-STATUSPAGE_ERR_CONNECTION_REFUSED = "Error connecting to server. Connection Refused from the server for '{url}' url."
-STATUSPAGE_ERR_INVALID_SCHEMA = "Error connecting to server. No connection adapters were found for '{url}' url."
-STATUSPAGE_ERR_CONNECTING_TO_SERVER = "Error connecting to server. Details: {error}"
-STATUSPAGE_STATE_FILE_CORRUPT_ERR = "Error occurred while loading the state file due to its unexpected format. \
-Resetting the state file with the default format. Please try again."
-STATUSPAGE_ERR_FIELDS_JSON_PARSE = "Unable to parse the fields parameter into a dictionary. {error}"
-STATUSPAGE_LIMIT_VALIDATION_ALLOW_ZERO_MSG = "Please provide zero or positive integer value in the {parameter} parameter."
-STATUSPAGE_LIMIT_VALIDATION_MSG = "Please provide a valid non-zero positive integer value in the {parameter} parameter."
+STATUSPAGE_ERROR_INVALID_URL = "Error connecting to server. Invalid URL: '{url}'"
+STATUSPAGE_ERROR_CONNECTION_REFUSED = "Error connecting to server. Connection Refused from the server for '{url}' url."
+STATUSPAGE_ERROR_INVALID_SCHEMA = "Error connecting to server. No connection adapters were found for '{url}' url."
+STATUSPAGE_ERROR_CONNECTING_TO_SERVER = "Error connecting to server. Details: {error}"
+STATUSPAGE_ERROR_FIELDS_JSON_PARSE = "Unable to parse the fields parameter into a dictionary. {error}"
+STATUSPAGE_LIMIT_VALIDATION_ALLOW_ZERO_MESSAGE = "Please provide zero or positive integer value in the {parameter} parameter."
+STATUSPAGE_LIMIT_VALIDATION_MESSAGE = "Please provide a valid non-zero positive integer value in the {parameter} parameter."
