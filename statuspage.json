@@ -4,23 +4,23 @@
     "description": "This app is an Atlassian product that is used to help monitor and communicate status issues for various products",
     "type": "ticketing",
     "main_module": "statuspage_connector.py",
-    "app_version": "1.0.1",
+    "app_version": "1.1.0",
     "utctime_updated": "2022-04-21T07:54:56.000000Z",
     "package_name": "phantom_statuspage",
     "product_vendor": "Atlassian",
     "product_name": "Statuspage",
     "product_version_regex": ".*",
-    "min_phantom_version": "5.2.0",
+    "min_phantom_version": "5.5.0",
     "python_version": "3",
     "fips_compliant": true,
     "latest_tested_versions": [
-        "Statuspage 2022-04-28, API Version: V1"
+        "Statuspage 2023-04-12, API Version: V1"
     ],
     "publisher": "Splunk",
     "logo": "logo_statuspage.svg",
     "logo_dark": "logo_statuspage_dark.svg",
     "app_wizard_version": "1.0.0",
-    "license": "Copyright (c) 2022 Splunk Inc.",
+    "license": "Copyright (c) 2022-2023 Splunk Inc.",
     "configuration": {
         "base_url": {
             "data_type": "string",
@@ -453,13 +453,6 @@
                     "data_type": "string",
                     "example_values": [
                         "2022-04-25T12:39:28.638Z"
-                    ]
-                },
-                {
-                    "data_path": "action_result.summary.num_incident",
-                    "data_type": "numeric",
-                    "example_values": [
-                        5
                     ]
                 },
                 {
@@ -1102,7 +1095,7 @@
                     "data_type": "string",
                     "order": 2,
                     "contains": [
-                        "incident impact value"
+                        "incident impact"
                     ],
                     "value_list": [
                         "none",
@@ -1164,9 +1157,7 @@
                     "example_values": [
                         "success",
                         "failed"
-                    ],
-                    "column_order": 2,
-                    "column_name": "Status"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.body",
@@ -1199,7 +1190,7 @@
                         "minor"
                     ],
                     "contains": [
-                        "incident impact value"
+                        "incident impact"
                     ]
                 },
                 {
@@ -1224,7 +1215,12 @@
                     "data_type": "string",
                     "example_values": [
                         "none"
-                    ]
+                    ],
+                    "contains": [
+                        "incident impact"
+                    ],
+                    "column_order": 3,
+                    "column_name": "Incident Impact"
                 },
                 {
                     "data_path": "action_result.data.*.impact_override",
@@ -1409,7 +1405,12 @@
                     "data_type": "string",
                     "example_values": [
                         "investigating"
-                    ]
+                    ],
+                    "contains": [
+                        "incident status"
+                    ],
+                    "column_order": 2,
+                    "column_name": "Incident Status"
                 },
                 {
                     "data_path": "action_result.data.*.updated_at",
@@ -1495,7 +1496,7 @@
                     "data_type": "string",
                     "order": 3,
                     "contains": [
-                        "incident impact value"
+                        "incident impact"
                     ],
                     "value_list": [
                         "none",
@@ -1557,9 +1558,7 @@
                     "example_values": [
                         "success",
                         "failed"
-                    ],
-                    "column_order": 2,
-                    "column_name": "Status"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.body",
@@ -1592,7 +1591,7 @@
                         "minor"
                     ],
                     "contains": [
-                        "incident impact value"
+                        "incident impact"
                     ]
                 },
                 {
@@ -1637,7 +1636,12 @@
                     "data_type": "string",
                     "example_values": [
                         "minor"
-                    ]
+                    ],
+                    "contains": [
+                        "incident impact"
+                    ],
+                    "column_order": 3,
+                    "column_name": "Incident Impact"
                 },
                 {
                     "data_path": "action_result.data.*.impact_override",
@@ -1818,7 +1822,12 @@
                     "data_type": "string",
                     "example_values": [
                         "investigating"
-                    ]
+                    ],
+                    "contains": [
+                        "incident status"
+                    ],
+                    "column_order": 2,
+                    "column_name": "Incident Status"
                 },
                 {
                     "data_path": "action_result.data.*.updated_at",
@@ -1874,6 +1883,17 @@
                     ],
                     "order": 0,
                     "primary": true
+                },
+                "page": {
+                    "description": "Page offset to fetch",
+                    "data_type": "numeric",
+                    "order": 1
+                },
+                "per_page": {
+                    "description": "The maximum number of rows to return per page (default and max: 100)",
+                    "data_type": "numeric",
+                    "default": 100,
+                    "order": 2
                 }
             },
             "output": [
@@ -1893,6 +1913,20 @@
                     ],
                     "example_values": [
                         "86qs8rfn5pnd"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.page",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.per_page",
+                    "data_type": "numeric",
+                    "example_values": [
+                        100
                     ]
                 },
                 {
@@ -1984,7 +2018,7 @@
             },
             {
                 "module": "certifi",
-                "input_file": "wheels/py3/certifi-2022.5.18.1-py3-none-any.whl"
+                "input_file": "wheels/py3/certifi-2022.12.7-py3-none-any.whl"
             },
             {
                 "module": "chardet",
@@ -2004,7 +2038,39 @@
             },
             {
                 "module": "urllib3",
-                "input_file": "wheels/shared/urllib3-1.26.9-py2.py3-none-any.whl"
+                "input_file": "wheels/shared/urllib3-1.26.15-py2.py3-none-any.whl"
+            }
+        ]
+    },
+    "pip39_dependencies": {
+        "wheel": [
+            {
+                "module": "beautifulsoup4",
+                "input_file": "wheels/py3/beautifulsoup4-4.9.1-py3-none-any.whl"
+            },
+            {
+                "module": "certifi",
+                "input_file": "wheels/py3/certifi-2022.12.7-py3-none-any.whl"
+            },
+            {
+                "module": "chardet",
+                "input_file": "wheels/shared/chardet-3.0.4-py2.py3-none-any.whl"
+            },
+            {
+                "module": "idna",
+                "input_file": "wheels/shared/idna-2.10-py2.py3-none-any.whl"
+            },
+            {
+                "module": "requests",
+                "input_file": "wheels/shared/requests-2.25.0-py2.py3-none-any.whl"
+            },
+            {
+                "module": "soupsieve",
+                "input_file": "wheels/py3/soupsieve-2.4-py3-none-any.whl"
+            },
+            {
+                "module": "urllib3",
+                "input_file": "wheels/shared/urllib3-1.26.15-py2.py3-none-any.whl"
             }
         ]
     }

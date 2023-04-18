@@ -1,6 +1,6 @@
 # File: statuspage_connector.py
 #
-# Copyright (c) 2022 Splunk Inc.
+# Copyright (c) 2022-2023 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -54,22 +54,24 @@ class StatuspageConnector(BaseConnector):
         :return: error message
         """
         error_code = None
-        error_msg = ERR_MSG_UNAVAILABLE
+        error_message = ERROR_MESSAGE_UNAVAILABLE
+
+        self.error_print("Error occurred.", e)
 
         try:
             if hasattr(e, "args"):
                 if len(e.args) > 1:
                     error_code = e.args[0]
-                    error_msg = e.args[1]
+                    error_message = e.args[1]
                 elif len(e.args) == 1:
-                    error_msg = e.args[0]
+                    error_message = e.args[0]
         except Exception:
             self.debug_print("Error occurred while getting message from html response")
 
         if not error_code:
-            error_text = "Error Message: {}".format(error_msg)
+            error_text = "Error Message: {}".format(error_message)
         else:
-            error_text = "Error Code: {}. Error Message: {}".format(error_code, error_msg)
+            error_text = "Error Code: {}. Error Message: {}".format(error_code, error_message)
 
         return error_text
 
@@ -193,20 +195,20 @@ class StatuspageConnector(BaseConnector):
                         timeout=config.get("timeout"))
         except requests.exceptions.InvalidURL as e:
             self.debug_print(self._get_error_message_from_exception(e))
-            return RetVal(action_result.set_status(phantom.APP_ERROR, STATUSPAGE_ERR_INVALID_URL.format(url=url)), resp_json)
+            return RetVal(action_result.set_status(phantom.APP_ERROR, STATUSPAGE_ERROR_INVALID_URL.format(url=url)), resp_json)
         except requests.exceptions.ConnectionError as e:
             self.debug_print(self._get_error_message_from_exception(e))
-            return RetVal(action_result.set_status(phantom.APP_ERROR, STATUSPAGE_ERR_CONNECTION_REFUSED.format(url=url)), resp_json)
+            return RetVal(action_result.set_status(phantom.APP_ERROR, STATUSPAGE_ERROR_CONNECTION_REFUSED.format(url=url)), resp_json)
         except requests.exceptions.InvalidSchema as e:
             self.debug_print(self._get_error_message_from_exception(e))
-            return RetVal(action_result.set_status(phantom.APP_ERROR, STATUSPAGE_ERR_INVALID_SCHEMA.format(url=url)), resp_json)
+            return RetVal(action_result.set_status(phantom.APP_ERROR, STATUSPAGE_ERROR_INVALID_SCHEMA.format(url=url)), resp_json)
         except Exception as e:
-            error_msg = self._get_error_message_from_exception(e)
-            self.debug_print(self._get_error_message_from_exception(error_msg))
+            error_message = self._get_error_message_from_exception(e)
+            self.debug_print(self._get_error_message_from_exception(error_message))
             return RetVal(
                 action_result.set_status(
                     phantom.APP_ERROR,
-                    STATUSPAGE_ERR_CONNECTING_TO_SERVER.format(error=error_msg),
+                    STATUSPAGE_ERROR_CONNECTING_TO_SERVER.format(error=error_message),
                 ),
                 resp_json
             )
@@ -230,19 +232,19 @@ class StatuspageConnector(BaseConnector):
             if parameter <= 0:
                 if allow_zero:
                     if parameter < 0:
-                        action_result.set_status(phantom.APP_ERROR, STATUSPAGE_LIMIT_VALIDATION_ALLOW_ZERO_MSG.format(parameter=key))
+                        action_result.set_status(phantom.APP_ERROR, STATUSPAGE_LIMIT_VALIDATION_ALLOW_ZERO_MESSAGE.format(parameter=key))
                         return None
                 else:
-                    action_result.set_status(phantom.APP_ERROR, STATUSPAGE_LIMIT_VALIDATION_MSG.format(parameter=key))
+                    action_result.set_status(phantom.APP_ERROR, STATUSPAGE_LIMIT_VALIDATION_MESSAGE.format(parameter=key))
                     return None
         except Exception as e:
             self.debug_print(
                 "Integer validation failed. Error occurred while validating integer value. Error: {}".format(str(e))
             )
             if allow_zero:
-                error_text = STATUSPAGE_LIMIT_VALIDATION_ALLOW_ZERO_MSG.format(parameter=key)
+                error_text = STATUSPAGE_LIMIT_VALIDATION_ALLOW_ZERO_MESSAGE.format(parameter=key)
             else:
-                error_text = STATUSPAGE_LIMIT_VALIDATION_MSG.format(parameter=key)
+                error_text = STATUSPAGE_LIMIT_VALIDATION_MESSAGE.format(parameter=key)
             action_result.set_status(phantom.APP_ERROR, error_text)
             return None
 
@@ -298,19 +300,17 @@ class StatuspageConnector(BaseConnector):
 
         limit = self._validate_integers(action_result, param.get('limit', 100), 'limit')
         if limit is None:
-            return action_result.get_status(), None
+            return action_result.get_status()
 
-        if page or page == 0:
+        if page:
             page = self._validate_integers(action_result, page, 'page offset', allow_zero=True)
             if page is None:
-                return action_result.get_status(), None
+                return action_result.get_status()
+            parameters['page'] = page
 
         if query:
             parameters['q'] = query
-        if limit:
-            parameters['limit'] = limit
-        if page:
-            parameters['page'] = page
+        parameters['limit'] = limit
 
         endpoint = STATUSPAGE_INCIDENTS_ENDPOINT.format(self._page_id)
 
@@ -410,8 +410,8 @@ class StatuspageConnector(BaseConnector):
         try:
             components = json.loads(components)
         except Exception as e:
-            error_msg = self._get_error_message_from_exception(e)
-            return RetVal(action_result.set_status(phantom.APP_ERROR, STATUSPAGE_ERR_FIELDS_JSON_PARSE.format(error=error_msg)), None)
+            error_message = self._get_error_message_from_exception(e)
+            return RetVal(action_result.set_status(phantom.APP_ERROR, STATUSPAGE_ERROR_FIELDS_JSON_PARSE.format(error=error_message)), None)
 
         return RetVal(phantom.APP_SUCCESS, components)
 
@@ -430,7 +430,7 @@ class StatuspageConnector(BaseConnector):
             # 'skip_confirmation_notification': param.get('skip_confirmation_notification')
         }
 
-        endpoint = STATUSPAGE_FOR_INCIDENT_ENDPOINT.format(self._page_id, incident_id) + '/subscribers'
+        endpoint = STATUSPAGE_INCIDENT_SUBSCRIBERS_ENDPOINT.format(self._page_id, incident_id)
         ret_val, response = self._make_rest_call(endpoint, action_result, json=data, method='post')
 
         if phantom.is_fail(ret_val):
@@ -445,10 +445,26 @@ class StatuspageConnector(BaseConnector):
         self.save_progress("In action handler for: {0}".format(self.get_action_identifier()))
         action_result = self.add_action_result(ActionResult(dict(param)))
 
+        parameter = dict()
         incident_id = param['incident_id']
-        endpoint = STATUSPAGE_FOR_INCIDENT_ENDPOINT.format(self._page_id, incident_id) + '/subscribers'
+        page = param.get('page')
+        per_page = param.get('per_page', 100)
 
-        ret_val, response = self._make_rest_call(endpoint, action_result)
+        if page:
+            page = self._validate_integers(action_result, page, 'page', allow_zero=True)
+            if page is None:
+                return action_result.get_status()
+            parameter['page'] = page
+
+        per_page = self._validate_integers(action_result, per_page, 'per_page')
+        if per_page is None:
+            return action_result.get_status()
+
+        parameter['per_page'] = per_page
+
+        endpoint = STATUSPAGE_INCIDENT_SUBSCRIBERS_ENDPOINT.format(self._page_id, incident_id)
+
+        ret_val, response = self._make_rest_call(endpoint, action_result, params=parameter)
 
         if phantom.is_fail(ret_val):
             return action_result.get_status()
