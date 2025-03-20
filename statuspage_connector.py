@@ -1,6 +1,6 @@
 # File: statuspage_connector.py
 #
-# Copyright (c) 2022-2024 Splunk Inc.
+# Copyright (c) 2022-2025 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -31,11 +31,9 @@ class RetVal(tuple):
 
 
 class StatuspageConnector(BaseConnector):
-
     def __init__(self):
-
         # Call the BaseConnectors init first
-        super(StatuspageConnector, self).__init__()
+        super().__init__()
 
         self._state = None
 
@@ -69,24 +67,24 @@ class StatuspageConnector(BaseConnector):
             self.debug_print("Error occurred while getting message from html response")
 
         if not error_code:
-            error_text = "Error Message: {}".format(error_message)
+            error_text = f"Error Message: {error_message}"
         else:
-            error_text = "Error Code: {}. Error Message: {}".format(error_code, error_message)
+            error_text = f"Error Code: {error_code}. Error Message: {error_message}"
 
         return error_text
 
     def _process_empty_reponse(self, response, action_result):
-
         if response.status_code == 200:
             return RetVal(phantom.APP_SUCCESS, {})
 
-        return RetVal(action_result.set_status(
-            phantom.APP_ERROR,
-            "Status Code: {}. Empty response and no information in the header.".format(response.status_code)
-        ), None)
+        return RetVal(
+            action_result.set_status(
+                phantom.APP_ERROR, f"Status Code: {response.status_code}. Empty response and no information in the header."
+            ),
+            None,
+        )
 
     def _process_html_response(self, response, action_result):
-
         # An html response, treat it like an error
         status_code = response.status_code
 
@@ -96,65 +94,63 @@ class StatuspageConnector(BaseConnector):
             for element in soup(["script", "style", "footer", "nav"]):
                 element.extract()
             error_text = soup.text
-            split_lines = error_text.split('\n')
+            split_lines = error_text.split("\n")
             split_lines = [x.strip() for x in split_lines if x.strip()]
-            error_text = '\n'.join(split_lines)
+            error_text = "\n".join(split_lines)
         except Exception:
             error_text = "Cannot parse error details"
 
-        message = "Status Code: {0}. Data from server:\n{1}\n".format(status_code,
-                error_text)
+        message = f"Status Code: {status_code}. Data from server:\n{error_text}\n"
 
-        message = message.replace('{', '{{').replace('}', '}}')
+        message = message.replace("{", "{{").replace("}", "}}")
 
         return RetVal(action_result.set_status(phantom.APP_ERROR, message), None)
 
     def _process_json_response(self, r, action_result):
-
         # Try a json parse
         try:
             resp_json = r.json()
         except Exception as e:
-            return RetVal(action_result.set_status(phantom.APP_ERROR, "Unable to parse JSON response. Error: {0}".format(str(e))), None)
+            return RetVal(action_result.set_status(phantom.APP_ERROR, f"Unable to parse JSON response. Error: {e!s}"), None)
 
         # Please specify the status codes here
         if 200 <= r.status_code < 399:
             return RetVal(phantom.APP_SUCCESS, resp_json)
 
         # You should process the error returned in the json
-        message = "Error from server. Status Code: {0} Data from server: {1}".format(
-                r.status_code, r.text.replace('{', '{{').replace('}', '}}'))
+        message = "Error from server. Status Code: {} Data from server: {}".format(r.status_code, r.text.replace("{", "{{").replace("}", "}}"))
 
         try:
-            if resp_json.get('type') and resp_json.get('message'):
-                message = "Error from server. Status Code: {0} Data from server: Error Type: {1}. Error Message: {2}".format(
-                    r.status_code, resp_json.get('type'), resp_json.get('message'))
-            if resp_json.get('errors', [])[0][0].get('message'):
-                message = "Error from server. Status Code: {0} Data from server: {1}".format(
-                    r.status_code, resp_json.get('errors', [])[0][0].get('message'))
+            if resp_json.get("type") and resp_json.get("message"):
+                message = "Error from server. Status Code: {} Data from server: Error Type: {}. Error Message: {}".format(
+                    r.status_code, resp_json.get("type"), resp_json.get("message")
+                )
+            if resp_json.get("errors", [])[0][0].get("message"):
+                message = "Error from server. Status Code: {} Data from server: {}".format(
+                    r.status_code, resp_json.get("errors", [])[0][0].get("message")
+                )
         except Exception:
             self.debug_print("Error occurred while getting message from json response")
         return RetVal(action_result.set_status(phantom.APP_ERROR, message), None)
 
     def _process_response(self, r, action_result):
-
         # store the r_text in debug data, it will get dumped in the logs if the action fails
-        if hasattr(action_result, 'add_debug_data'):
-            action_result.add_debug_data({'r_status_code': r.status_code})
-            action_result.add_debug_data({'r_text': r.text})
-            action_result.add_debug_data({'r_headers': r.headers})
+        if hasattr(action_result, "add_debug_data"):
+            action_result.add_debug_data({"r_status_code": r.status_code})
+            action_result.add_debug_data({"r_text": r.text})
+            action_result.add_debug_data({"r_headers": r.headers})
 
         # Process each 'Content-Type' of response separately
 
         # Process a json response
-        if 'json' in r.headers.get('Content-Type', ''):
+        if "json" in r.headers.get("Content-Type", ""):
             return self._process_json_response(r, action_result)
 
         # Process an HTML resonse, Do this no matter what the api talks.
         # There is a high chance of a PROXY in between SOAR and the rest of
         # world, in case of errors, PROXY's return HTML, this function parses
         # the error and adds it to the action_result.
-        if 'html' in r.headers.get('Content-Type', ''):
+        if "html" in r.headers.get("Content-Type", ""):
             return self._process_html_response(r, action_result)
 
         # it's not content-type that is to be parsed, handle an empty response
@@ -162,37 +158,30 @@ class StatuspageConnector(BaseConnector):
             return self._process_empty_reponse(r, action_result)
 
         # everything else is actually an error at this point
-        message = "Can't process response from server. Status Code: {0} Data from server: {1}".format(
-                r.status_code, r.text.replace('{', '{{').replace('}', '}}'))
+        message = "Can't process response from server. Status Code: {} Data from server: {}".format(
+            r.status_code, r.text.replace("{", "{{").replace("}", "}}")
+        )
 
         return RetVal(action_result.set_status(phantom.APP_ERROR, message), None)
 
     def _make_rest_call(self, endpoint, action_result, headers=None, params=None, data=None, json=None, method="get"):
-
         resp_json = None
         config = self.get_config()
-        headers = {'Authorization': "API Key {}".format(self._api_key)}
+        headers = {"Authorization": f"API Key {self._api_key}"}
 
         if json:
-            headers.update({'Content-Type': 'application/json'})
+            headers.update({"Content-Type": "application/json"})
 
         try:
             request_func = getattr(requests, method)
         except AttributeError:
-            return RetVal(action_result.set_status(phantom.APP_ERROR, "Invalid method: {0}".format(method)), resp_json)
+            return RetVal(action_result.set_status(phantom.APP_ERROR, f"Invalid method: {method}"), resp_json)
 
         # Create a URL to connect to
-        url = "{}{}".format(self._base_url, endpoint)
+        url = f"{self._base_url}{endpoint}"
 
         try:
-            r = request_func(
-                        url,
-                        data=data,
-                        json=json,
-                        headers=headers,
-                        verify=True,
-                        params=params,
-                        timeout=config.get("timeout"))
+            r = request_func(url, data=data, json=json, headers=headers, verify=True, params=params, timeout=config.get("timeout"))
         except requests.exceptions.InvalidURL as e:
             self.debug_print(self._get_error_message_from_exception(e))
             return RetVal(action_result.set_status(phantom.APP_ERROR, STATUSPAGE_ERROR_INVALID_URL.format(url=url)), resp_json)
@@ -210,7 +199,7 @@ class StatuspageConnector(BaseConnector):
                     phantom.APP_ERROR,
                     STATUSPAGE_ERROR_CONNECTING_TO_SERVER.format(error=error_message),
                 ),
-                resp_json
+                resp_json,
             )
 
         return self._process_response(r, action_result)
@@ -238,9 +227,7 @@ class StatuspageConnector(BaseConnector):
                     action_result.set_status(phantom.APP_ERROR, STATUSPAGE_LIMIT_VALIDATION_MESSAGE.format(parameter=key))
                     return None
         except Exception as e:
-            self.debug_print(
-                "Integer validation failed. Error occurred while validating integer value. Error: {}".format(str(e))
-            )
+            self.debug_print(f"Integer validation failed. Error occurred while validating integer value. Error: {e!s}")
             if allow_zero:
                 error_text = STATUSPAGE_LIMIT_VALIDATION_ALLOW_ZERO_MESSAGE.format(parameter=key)
             else:
@@ -251,7 +238,6 @@ class StatuspageConnector(BaseConnector):
         return parameter
 
     def _handle_test_connectivity(self, param):
-
         action_result = self.add_action_result(ActionResult(dict(param)))
 
         self.save_progress("Starting connectivity test")
@@ -269,12 +255,11 @@ class StatuspageConnector(BaseConnector):
         return action_result.set_status(phantom.APP_SUCCESS)
 
     def _handle_get_incident(self, param):
-
-        self.save_progress("In action handler for: {0}".format(self.get_action_identifier()))
+        self.save_progress(f"In action handler for: {self.get_action_identifier()}")
 
         action_result = self.add_action_result(ActionResult(dict(param)))
 
-        incident_id = param['incident_id']
+        incident_id = param["incident_id"]
 
         endpoint = STATUSPAGE_FOR_INCIDENT_ENDPOINT.format(self._page_id, incident_id)
 
@@ -289,28 +274,27 @@ class StatuspageConnector(BaseConnector):
         return action_result.set_status(phantom.APP_SUCCESS, "Successfully fetched incident")
 
     def _handle_list_incidents(self, param):
-
-        self.save_progress("In action handler for: {0}".format(self.get_action_identifier()))
+        self.save_progress(f"In action handler for: {self.get_action_identifier()}")
 
         action_result = self.add_action_result(ActionResult(dict(param)))
 
         parameters = dict()
-        query = param.get('query')
-        page = param.get('page_offset')
+        query = param.get("query")
+        page = param.get("page_offset")
 
-        limit = self._validate_integers(action_result, param.get('limit', 100), 'limit')
+        limit = self._validate_integers(action_result, param.get("limit", 100), "limit")
         if limit is None:
             return action_result.get_status()
 
         if page:
-            page = self._validate_integers(action_result, page, 'page offset', allow_zero=True)
+            page = self._validate_integers(action_result, page, "page offset", allow_zero=True)
             if page is None:
                 return action_result.get_status()
-            parameters['page'] = page
+            parameters["page"] = page
 
         if query:
-            parameters['q'] = query
-        parameters['limit'] = limit
+            parameters["q"] = query
+        parameters["limit"] = limit
 
         endpoint = STATUSPAGE_INCIDENTS_ENDPOINT.format(self._page_id)
 
@@ -323,13 +307,12 @@ class StatuspageConnector(BaseConnector):
             action_result.add_data(incident)
 
         summary = action_result.set_summary({})
-        summary['num_incidents'] = len(response)
+        summary["num_incidents"] = len(response)
 
         return action_result.set_status(phantom.APP_SUCCESS)
 
     def _handle_create_incident(self, param):
-
-        self.save_progress("In action handler for: {0}".format(self.get_action_identifier()))
+        self.save_progress(f"In action handler for: {self.get_action_identifier()}")
         action_result = self.add_action_result(ActionResult(dict(param)))
 
         data = dict()
@@ -337,12 +320,12 @@ class StatuspageConnector(BaseConnector):
         ret_val, components = self._get_fields(param, action_result)
 
         data["incident"] = {
-            "name": param['name'],
-            "status": param.get('status'),
-            "impact_override": param.get('impact_override'),
-            "body": param.get('body'),
-            "component_ids": param.get('component_ids'),
-            "components": components
+            "name": param["name"],
+            "status": param.get("status"),
+            "impact_override": param.get("impact_override"),
+            "body": param.get("body"),
+            "component_ids": param.get("component_ids"),
+            "components": components,
         }
 
         endpoint = STATUSPAGE_INCIDENTS_ENDPOINT.format(self._page_id)
@@ -356,36 +339,35 @@ class StatuspageConnector(BaseConnector):
         return action_result.set_status(phantom.APP_SUCCESS, "Successfully created incident")
 
     def _handle_update_incident(self, param):
-
-        self.save_progress("In action handler for: {0}".format(self.get_action_identifier()))
+        self.save_progress(f"In action handler for: {self.get_action_identifier()}")
         action_result = self.add_action_result(ActionResult(dict(param)))
 
         data = dict()
         ret_val, components = self._get_fields(param, action_result)
 
-        incident_id = param['incident_id']
+        incident_id = param["incident_id"]
 
-        name = param.get('name')
-        status = param.get('status')
-        impact_override = param.get('impact_override')
-        body = param.get('body')
-        component_ids = param.get('component_ids')
+        name = param.get("name")
+        status = param.get("status")
+        impact_override = param.get("impact_override")
+        body = param.get("body")
+        component_ids = param.get("component_ids")
 
         incident = dict()
         if name:
-            incident['name'] = name
+            incident["name"] = name
         if status:
-            incident['status'] = status
+            incident["status"] = status
         if impact_override:
-            incident['impact_override'] = impact_override
+            incident["impact_override"] = impact_override
         if body:
-            incident['body'] = body
+            incident["body"] = body
         if component_ids:
-            incident['component_ids'] = component_ids
+            incident["component_ids"] = component_ids
         if components:
-            incident['components'] = components
+            incident["components"] = components
 
-        data['incident'] = incident
+        data["incident"] = incident
 
         endpoint = STATUSPAGE_FOR_INCIDENT_ENDPOINT.format(self._page_id, incident_id)
         ret_val, response = self._make_rest_call(endpoint, action_result, json=data, method="patch")
@@ -399,8 +381,7 @@ class StatuspageConnector(BaseConnector):
         return action_result.set_status(phantom.APP_SUCCESS, "Successfully updated incident")
 
     def _get_fields(self, param, action_result):
-
-        components = param.get('components')
+        components = param.get("components")
 
         # fields is an optional field
         if not components:
@@ -416,22 +397,21 @@ class StatuspageConnector(BaseConnector):
         return RetVal(phantom.APP_SUCCESS, components)
 
     def _handle_create_incident_subscriber(self, param):
-
-        self.save_progress("In action handler for: {0}".format(self.get_action_identifier()))
+        self.save_progress(f"In action handler for: {self.get_action_identifier()}")
         action_result = self.add_action_result(ActionResult(dict(param)))
 
-        incident_id = param['incident_id']
+        incident_id = param["incident_id"]
 
         data = dict()
-        data['subscriber'] = {
-            'email': param['email']
+        data["subscriber"] = {
+            "email": param["email"]
             # 'phone_country': param.get('phone_country'),
             # 'phone_number': param.get('phone_number'),
             # 'skip_confirmation_notification': param.get('skip_confirmation_notification')
         }
 
         endpoint = STATUSPAGE_INCIDENT_SUBSCRIBERS_ENDPOINT.format(self._page_id, incident_id)
-        ret_val, response = self._make_rest_call(endpoint, action_result, json=data, method='post')
+        ret_val, response = self._make_rest_call(endpoint, action_result, json=data, method="post")
 
         if phantom.is_fail(ret_val):
             return action_result.get_status()
@@ -441,26 +421,25 @@ class StatuspageConnector(BaseConnector):
         return action_result.set_status(phantom.APP_SUCCESS, "Successfully created incident subscriber")
 
     def _handle_list_incident_subscribers(self, param):
-
-        self.save_progress("In action handler for: {0}".format(self.get_action_identifier()))
+        self.save_progress(f"In action handler for: {self.get_action_identifier()}")
         action_result = self.add_action_result(ActionResult(dict(param)))
 
         parameter = dict()
-        incident_id = param['incident_id']
-        page = param.get('page')
-        per_page = param.get('per_page', 100)
+        incident_id = param["incident_id"]
+        page = param.get("page")
+        per_page = param.get("per_page", 100)
 
         if page:
-            page = self._validate_integers(action_result, page, 'page', allow_zero=True)
+            page = self._validate_integers(action_result, page, "page", allow_zero=True)
             if page is None:
                 return action_result.get_status()
-            parameter['page'] = page
+            parameter["page"] = page
 
-        per_page = self._validate_integers(action_result, per_page, 'per_page')
+        per_page = self._validate_integers(action_result, per_page, "per_page")
         if per_page is None:
             return action_result.get_status()
 
-        parameter['per_page'] = per_page
+        parameter["per_page"] = per_page
 
         endpoint = STATUSPAGE_INCIDENT_SUBSCRIBERS_ENDPOINT.format(self._page_id, incident_id)
 
@@ -473,66 +452,60 @@ class StatuspageConnector(BaseConnector):
             action_result.add_data(incident)
 
         summary = action_result.set_summary({})
-        summary['num_of_subscribers'] = len(response)
+        summary["num_of_subscribers"] = len(response)
 
         return action_result.set_status(phantom.APP_SUCCESS)
 
     def handle_action(self, param):
-
         ret_val = phantom.APP_SUCCESS
 
         # Get the action that we are supposed to execute for this App Run
         action_id = self.get_action_identifier()
 
-        self.debug_print("action_id: {}".format(self.get_action_identifier()))
+        self.debug_print(f"action_id: {self.get_action_identifier()}")
 
-        if action_id == 'test_connectivity':
+        if action_id == "test_connectivity":
             ret_val = self._handle_test_connectivity(param)
-        elif action_id == 'list_incidents':
+        elif action_id == "list_incidents":
             ret_val = self._handle_list_incidents(param)
-        elif action_id == 'create_incident':
+        elif action_id == "create_incident":
             ret_val = self._handle_create_incident(param)
-        elif action_id == 'get_incident':
+        elif action_id == "get_incident":
             ret_val = self._handle_get_incident(param)
-        elif action_id == 'update_incident':
+        elif action_id == "update_incident":
             ret_val = self._handle_update_incident(param)
-        elif action_id == 'create_incident_subscriber':
+        elif action_id == "create_incident_subscriber":
             ret_val = self._handle_create_incident_subscriber(param)
-        elif action_id == 'list_incident_subscribers':
+        elif action_id == "list_incident_subscribers":
             ret_val = self._handle_list_incident_subscribers(param)
 
         return ret_val
 
     def initialize(self):
-
         # Load the state in initialize, use it to store data
         # that needs to be accessed across actions
         self._state = self.load_state()
         if not isinstance(self._state, dict):
             self.debug_print("Resetting the state file with the default format")
-            self._state = {
-                "app_version": self.get_app_json().get('app_version')
-            }
+            self._state = {"app_version": self.get_app_json().get("app_version")}
 
         config = self.get_config()
-        self._base_url = config['base_url']
-        if not self._base_url.endswith('/'):
-            self._base_url = "{}/".format(self._base_url)
+        self._base_url = config["base_url"]
+        if not self._base_url.endswith("/"):
+            self._base_url = f"{self._base_url}/"
 
-        self._api_key = config['api_key']
-        self._page_id = config['page_id']
+        self._api_key = config["api_key"]
+        self._page_id = config["page_id"]
 
         return phantom.APP_SUCCESS
 
     def finalize(self):
-
         # Save the state, this data is saved accross actions and app upgrades
         self.save_state(self._state)
         return phantom.APP_SUCCESS
 
 
-if __name__ == '__main__':
-
+if __name__ == "__main__":
     import argparse
     import sys
 
@@ -542,10 +515,10 @@ if __name__ == '__main__':
 
     argparser = argparse.ArgumentParser()
 
-    argparser.add_argument('input_test_json', help='Input Test JSON file')
-    argparser.add_argument('-u', '--username', help='username', required=False)
-    argparser.add_argument('-p', '--password', help='password', required=False)
-    argparser.add_argument('-v', '--verify', action='store_true', help='verify', required=False, default=False)
+    argparser.add_argument("input_test_json", help="Input Test JSON file")
+    argparser.add_argument("-u", "--username", help="username", required=False)
+    argparser.add_argument("-p", "--password", help="password", required=False)
+    argparser.add_argument("-v", "--verify", action="store_true", help="verify", required=False, default=False)
 
     args = argparser.parse_args()
     session_id = None
@@ -555,30 +528,30 @@ if __name__ == '__main__':
     verify = args.verify
 
     if username is not None and password is None:
-
         # User specified a username but not a password, so ask
         import getpass
+
         password = getpass.getpass("Password: ")
 
     if username and password:
         try:
-            login_url = StatuspageConnector._get_phantom_base_url() + '/login'
+            login_url = StatuspageConnector._get_phantom_base_url() + "/login"
             print("Accessing the Login page")
             r = requests.get(login_url, verify=verify, timeout=60)
-            csrftoken = r.cookies['csrftoken']
+            csrftoken = r.cookies["csrftoken"]
 
             data = dict()
-            data['username'] = username
-            data['password'] = password
-            data['csrfmiddlewaretoken'] = csrftoken
+            data["username"] = username
+            data["password"] = password
+            data["csrfmiddlewaretoken"] = csrftoken
 
             headers = dict()
-            headers['Cookie'] = 'csrftoken=' + csrftoken
-            headers['Referer'] = login_url
+            headers["Cookie"] = "csrftoken=" + csrftoken
+            headers["Referer"] = login_url
 
             print("Logging into Platform to get the session id")
             r2 = requests.post(login_url, verify=verify, data=data, headers=headers, timeout=60)
-            session_id = r2.cookies['sessionid']
+            session_id = r2.cookies["sessionid"]
         except Exception as e:
             print("Unable to get session id from the platform. Error: " + str(e))
             sys.exit(1)
@@ -592,8 +565,8 @@ if __name__ == '__main__':
         connector.print_progress_message = True
 
         if session_id is not None:
-            in_json['user_session_token'] = session_id
-            connector._set_csrf_info(csrftoken, headers['Referer'])
+            in_json["user_session_token"] = session_id
+            connector._set_csrf_info(csrftoken, headers["Referer"])
 
         ret_val = connector._handle_action(json.dumps(in_json), None)
         print(json.dumps(json.loads(ret_val), indent=4))
