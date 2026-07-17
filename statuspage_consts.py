@@ -13,6 +13,15 @@
 # either express or implied. See the License for the specific language governing permissions
 # and limitations under the License.
 
+from urllib.parse import quote
+
+
+def quote_incident_id(incident_id):
+    """Encode an incident ID so it cannot escape its URL path segment."""
+    if incident_id in {".", ".."}:
+        return None
+    return quote(incident_id, safe="")
+
 # Constants relating to 'get_error_message_from_exception'
 ERROR_MESSAGE_UNAVAILABLE = "Error message unavailable. Please check the asset configuration and|or action parameters."
 
@@ -27,5 +36,6 @@ STATUSPAGE_ERROR_CONNECTION_REFUSED = "Error connecting to server. Connection Re
 STATUSPAGE_ERROR_INVALID_SCHEMA = "Error connecting to server. No connection adapters were found for '{url}' url."
 STATUSPAGE_ERROR_CONNECTING_TO_SERVER = "Error connecting to server. Details: {error}"
 STATUSPAGE_ERROR_FIELDS_JSON_PARSE = "Unable to parse the fields parameter into a dictionary. {error}"
+STATUSPAGE_ERROR_INVALID_INCIDENT_ID = "Please provide a valid incident ID."
 STATUSPAGE_LIMIT_VALIDATION_ALLOW_ZERO_MESSAGE = "Please provide zero or positive integer value in the {parameter} parameter."
 STATUSPAGE_LIMIT_VALIDATION_MESSAGE = "Please provide a valid non-zero positive integer value in the {parameter} parameter."

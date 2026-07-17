@@ -259,7 +259,9 @@ class StatuspageConnector(BaseConnector):
 
         action_result = self.add_action_result(ActionResult(dict(param)))
 
-        incident_id = param["incident_id"]
+        incident_id = quote_incident_id(param["incident_id"])
+        if incident_id is None:
+            return action_result.set_status(phantom.APP_ERROR, STATUSPAGE_ERROR_INVALID_INCIDENT_ID)
 
         endpoint = STATUSPAGE_FOR_INCIDENT_ENDPOINT.format(self._page_id, incident_id)
 
@@ -345,7 +347,9 @@ class StatuspageConnector(BaseConnector):
         data = dict()
         ret_val, components = self._get_fields(param, action_result)
 
-        incident_id = param["incident_id"]
+        incident_id = quote_incident_id(param["incident_id"])
+        if incident_id is None:
+            return action_result.set_status(phantom.APP_ERROR, STATUSPAGE_ERROR_INVALID_INCIDENT_ID)
 
         name = param.get("name")
         status = param.get("status")
@@ -400,7 +404,9 @@ class StatuspageConnector(BaseConnector):
         self.save_progress(f"In action handler for: {self.get_action_identifier()}")
         action_result = self.add_action_result(ActionResult(dict(param)))
 
-        incident_id = param["incident_id"]
+        incident_id = quote_incident_id(param["incident_id"])
+        if incident_id is None:
+            return action_result.set_status(phantom.APP_ERROR, STATUSPAGE_ERROR_INVALID_INCIDENT_ID)
 
         data = dict()
         data["subscriber"] = {
@@ -425,7 +431,9 @@ class StatuspageConnector(BaseConnector):
         action_result = self.add_action_result(ActionResult(dict(param)))
 
         parameter = dict()
-        incident_id = param["incident_id"]
+        incident_id = quote_incident_id(param["incident_id"])
+        if incident_id is None:
+            return action_result.set_status(phantom.APP_ERROR, STATUSPAGE_ERROR_INVALID_INCIDENT_ID)
         page = param.get("page")
         per_page = param.get("per_page", 100)
 
