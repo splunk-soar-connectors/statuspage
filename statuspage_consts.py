@@ -1,6 +1,6 @@
 # File: statuspage_consts.py
 #
-# Copyright (c) 2022-2025 Splunk Inc.
+# Copyright (c) 2022-2026 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,6 +21,7 @@ def quote_incident_id(incident_id):
     if incident_id in {".", ".."}:
         return None
     return quote(incident_id, safe="")
+
 
 # Constants relating to 'get_error_message_from_exception'
 ERROR_MESSAGE_UNAVAILABLE = "Error message unavailable. Please check the asset configuration and|or action parameters."

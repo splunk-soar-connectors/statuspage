@@ -20,7 +20,7 @@
     "logo": "logo_statuspage.svg",
     "logo_dark": "logo_statuspage_dark.svg",
     "app_wizard_version": "1.0.0",
-    "license": "Copyright (c) 2022-2025 Splunk Inc.",
+    "license": "Copyright (c) 2022-2026 Splunk Inc.",
     "configuration": {
         "base_url": {
             "data_type": "string",
@@ -2009,5 +2009,11 @@
             },
             "versions": "EQ(*)"
         }
-    ]
+    ],
+    "pip39_dependencies": {
+        "wheel": []
+    },
+    "pip313_dependencies": {
+        "wheel": []
+    }
 }
