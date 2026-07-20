@@ -1,9 +1,9 @@
 # Statuspage
 
-Publisher: Splunk \
-Connector Version: 1.1.4 \
-Product Vendor: Atlassian \
-Product Name: Statuspage \
+Publisher: Splunk <br>
+Connector Version: 1.1.4 <br>
+Product Vendor: Atlassian <br>
+Product Name: Statuspage <br>
 Minimum Product Version: 5.5.0
 
 This app is an Atlassian product that is used to help monitor and communicate status issues for various products
@@ -21,19 +21,19 @@ VARIABLE | REQUIRED | TYPE | DESCRIPTION
 
 ### Supported Actions
 
-[test connectivity](#action-test-connectivity) - Validate the asset configuration for connectivity using the supplied credentials \
-[list incidents](#action-list-incidents) - Get a list of incidents \
-[get incident](#action-get-incident) - Get an incident's details \
-[create incident subscriber](#action-create-incident-subscriber) - Create an incident subscriber \
-[create incident](#action-create-incident) - Create an incident \
-[update incident](#action-update-incident) - Update an incident \
+[test connectivity](#action-test-connectivity) - Validate the asset configuration for connectivity using the supplied credentials <br>
+[list incidents](#action-list-incidents) - Get a list of incidents <br>
+[get incident](#action-get-incident) - Get an incident's details <br>
+[create incident subscriber](#action-create-incident-subscriber) - Create an incident subscriber <br>
+[create incident](#action-create-incident) - Create an incident <br>
+[update incident](#action-update-incident) - Update an incident <br>
 [list incident subscribers](#action-list-incident-subscribers) - Get a list of incident subscribers
 
 ## action: 'test connectivity'
 
 Validate the asset configuration for connectivity using the supplied credentials
 
-Type: **test** \
+Type: **test** <br>
 Read only: **True**
 
 #### Action Parameters
@@ -48,7 +48,7 @@ No Output
 
 Get a list of incidents
 
-Type: **investigate** \
+Type: **investigate** <br>
 Read only: **True**
 
 #### Action Parameters
@@ -128,7 +128,7 @@ summary.total_objects_successful | numeric | | 1 |
 
 Get an incident's details
 
-Type: **investigate** \
+Type: **investigate** <br>
 Read only: **True**
 
 #### Action Parameters
@@ -205,7 +205,7 @@ summary.total_objects_successful | numeric | | 1 |
 
 Create an incident subscriber
 
-Type: **generic** \
+Type: **generic** <br>
 Read only: **False**
 
 #### Action Parameters
@@ -237,7 +237,7 @@ summary.total_objects_successful | numeric | | 1 |
 
 Create an incident
 
-Type: **generic** \
+Type: **generic** <br>
 Read only: **False**
 
 #### Action Parameters
@@ -307,7 +307,7 @@ summary.total_objects_successful | numeric | | 1 |
 
 Update an incident
 
-Type: **generic** \
+Type: **generic** <br>
 Read only: **False**
 
 #### Action Parameters
@@ -379,7 +379,7 @@ summary.total_objects_successful | numeric | | 1 |
 
 Get a list of incident subscribers
 
-Type: **investigate** \
+Type: **investigate** <br>
 Read only: **True**
 
 #### Action Parameters
@@ -413,7 +413,7 @@ ______________________________________________________________________
 
 Auto-generated Splunk SOAR Connector documentation.
 
-Copyright 2025 Splunk Inc.
+Copyright 2026 Splunk Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
