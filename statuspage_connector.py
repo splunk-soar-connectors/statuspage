@@ -320,6 +320,8 @@ class StatuspageConnector(BaseConnector):
         data = dict()
 
         ret_val, components = self._get_fields(param, action_result)
+        if phantom.is_fail(ret_val):
+            return action_result.get_status()
 
         data["incident"] = {
             "name": param["name"],
@@ -346,6 +348,8 @@ class StatuspageConnector(BaseConnector):
 
         data = dict()
         ret_val, components = self._get_fields(param, action_result)
+        if phantom.is_fail(ret_val):
+            return action_result.get_status()
 
         incident_id = quote_incident_id(param["incident_id"])
         if incident_id is None:
