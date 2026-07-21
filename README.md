@@ -1,7 +1,7 @@
 # Statuspage
 
 Publisher: Splunk <br>
-Connector Version: 1.1.5 <br>
+Connector Version: 1.1.6 <br>
 Product Vendor: Atlassian <br>
 Product Name: Statuspage <br>
 Minimum Product Version: 5.5.0
